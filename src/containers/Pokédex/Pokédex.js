@@ -8,7 +8,7 @@ const Pokedex = props => {
     const StyledPokedex = styled.div`
         height: 100vh;
         width: 100vw;
-        background-color: ${ theme.palette.primaryDark }
+
     `    
     return <StyledPokedex><Body theme={theme}></Body></StyledPokedex>
 }

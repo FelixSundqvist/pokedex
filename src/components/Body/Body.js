@@ -1,22 +1,37 @@
 import React from 'react'
 import styled from 'styled-components';
+import GBController from '../GBController/GBController';
 
 const Body = props => {
+
     const { theme } = props;
-    const BodyContainer = styled.div`
-        height: 100%;
-        width: 50%;
-        margin: 0 auto;
-        border: 5px solid black;
-    `
-    const BodyFrame = styled.div`
+    const Body = styled.div`
         height: 100%;
         width: 100%;
+        padding: 5vh;
+
+        background-color: ${ theme.palette.primaryDark};
+    `
+    const BodyContainer = styled.div`
+        height: 500px;
+        width: 500px;
+        
+       
+        @media screen and (max-width: 500px){
+            height: 300px;
+            width: 300px;
+        }
+    `
+    const BodyFrame = styled.div`
+        background-color: ${theme.palette.white};
+        height: 100%;
+        width: 100%;
+        border: 5px solid black;
         margin: 0 auto;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: ${theme.palette.white};
+        
     `    
     const BodyInner = styled.div`
         height: 90%;
@@ -24,7 +39,8 @@ const Body = props => {
         background-color: ${theme.palette.black};
     `
     return (
-        <BodyContainer>
+        <Body>
+            <BodyContainer>
 
             <BodyFrame>
                 <BodyInner>
@@ -32,7 +48,11 @@ const Body = props => {
                 </BodyInner>
             </BodyFrame>
 
-        </BodyContainer>
+            <GBController theme={theme} />
+
+            </BodyContainer>
+        </Body>
+
     )
 }
 

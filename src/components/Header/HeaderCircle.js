@@ -5,11 +5,12 @@ const HeaderCircle = ({ theme }) => {
 
     const OuterFrame = styled.div`
         position: absolute;
-        top: 0;
+        bottom: -50%;
         right: 0;
-        margin: 20px;
-        width: 100px;
-        height: 100px;
+        transform: translate(-50%, -50%);
+        
+        width: 10vh;
+        height: 10vh;
         border-radius: 50%;
         background-color: ${theme.palette.white};
     `
@@ -39,7 +40,7 @@ const HeaderCircle = ({ theme }) => {
         position: absolute;
         top: -10%;
         left: -20%;
-        margin: 20px;
+        margin: 1vh;
         width: 40%;
         height: 40%;
         border-radius: 50%;
@@ -49,9 +50,9 @@ const HeaderCircle = ({ theme }) => {
         position: absolute;
         top: -50%;
         left: -50%;
-        margin: 20px;
-        width: 40%;
-        height: 40%;
+        margin: 1.5vh;
+        width: 50%;
+        height: 50%;
         border-radius: 50%;
         background-color: white;
     `
