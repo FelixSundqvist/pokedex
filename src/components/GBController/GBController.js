@@ -8,12 +8,10 @@ const GBController = ({ theme }) => {
     const StyledGBController = styled.div`
         position: relative;
         background-color: ${theme.palette.primary};
-        min-height: 20%;
+        min-height: 30%;
         width: 100%;
         margin: 0 auto;
-        
         padding: 10px;
-
     `
     return(
         <StyledGBController>
