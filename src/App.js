@@ -6,6 +6,7 @@ import Pokedex from './containers/Pokédex/Pokédex';
 
 
 function App({ theme }) {
+
   return (
     <div className="App">
       <Header theme = {theme} />

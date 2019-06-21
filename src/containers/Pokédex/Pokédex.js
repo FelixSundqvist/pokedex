@@ -1,34 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Body from '../../components/Body/Body';
-import axios from 'axios';
 import CardList from '../../components/CardList/CardList';
+import generations from '../../PokemonGeneration';
+import * as actionTypes from '../../store/actions/actionTypes';
 
 const Pokedex = props => {
-    const { theme } = props;
-    const [pokemon, setPokemon] = useState([]);
+    const { theme, selectedGen, fetchPokemon, genClick } = props;
 
-    useEffect(() => {
-    
-        axios.get("https://pokeapi.co/api/v2/pokemon/?limit=151")
-        .then(res => res.data)
-        .then(data => setPokemon(data.results))
-        
-    }, [])
     const StyledPokedex = styled.div`
         height: 100vh;
         width: 100vw;
-    `    
-    console.log(pokemon)
-
+    `
+    useEffect(() => {
+        fetchPokemon(selectedGen)
+    }, [selectedGen])
 
     return (
     <StyledPokedex>
-        <Body theme={theme}>
+        <Body 
+            theme={theme} 
+            generations={generations} 
+            genClick={(gen) => genClick(gen)}>
 
-            <CardList items = {pokemon}/>
+            <CardList items = {props.pokemons} />
+
         </Body>
     </StyledPokedex>)
 }
+const mapStateToProps = (state) => ({
+    pokemons: state.pokemons,
+    selectedGen: state.selectedGen,
+    selectedPokemonIndex: state.selectedPokemonIndex,
+    selectedPokemon: state.selectedPokemon
+})
 
-export default Pokedex;
+const mapDispatchToProps = (dispatch) => ({
+    fetchPokemon: (selectedGen) => dispatch({type: actionTypes.FETCH_PKMN_START, selectedGen: selectedGen}),
+    genClick: (gen) => dispatch({type: actionTypes.CHANGE_GEN, selectedGen: gen})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pokedex);

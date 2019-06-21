@@ -6,12 +6,13 @@ import RoundButtons from './RoundButtons/RoundButtons';
 const GBController = ({ theme }) => {
 
     const StyledGBController = styled.div`
-        position: relative;
+        position: absolute;
         background-color: ${theme.palette.primary};
-        min-height: 30%;
+        min-height: 20%;
         width: 100%;
         margin: 0 auto;
         padding: 10px;
+        bottom: 0;
     `
     return(
         <StyledGBController>

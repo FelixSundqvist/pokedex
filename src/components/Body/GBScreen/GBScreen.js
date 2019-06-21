@@ -23,7 +23,7 @@ const GBScreen = props => {
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-evenly;
-        overflow: scroll;
+        overflow: ${props.scroll ? "scroll" : null};
     `
     return ( 
         <ScreenFrame>
