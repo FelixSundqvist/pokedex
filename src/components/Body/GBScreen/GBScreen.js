@@ -13,7 +13,6 @@ const GBScreen = props => {
         display: flex;
         justify-content: center;
         align-items: center;
-
     `    
     const ScreenInner = styled.div`
         height: 80%;

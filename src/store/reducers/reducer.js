@@ -3,8 +3,9 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     pokemons:[],
     selectedGen: 0,
-    selectedPokemonIndex: 1,
-    selectedPokemon: {}
+    selectedPokemonId: "bulbasaur",
+    selectedPokemon: {},
+    pokedexInfo: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,11 +16,16 @@ const reducer = (state = initialState, action) => {
                 ...action.pokemons
             ]};
         case(actionTypes.CHANGE_GEN):
-            console.log("change gen", action)
             return{
                 ...state,
                 selectedGen: action.selectedGen
-            }      
+            }
+        case(actionTypes.FETCH_CURRENT_PKMN_SUCCESS):
+        return {
+            ...state,
+            selectedPokemon: action.selectedPokemon,
+            pokedexInfo: action.pokedexInfo
+        }
         default:
             return state;
     }

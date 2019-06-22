@@ -29,18 +29,21 @@ const Body = props => {
         width: 700px; 
     `
 
+/* <GB>
+<GBScreen scroll theme={theme}>
+    {props.children}
+</GBScreen>
+</GB> */
+
+
     return (
         <Body>
             <BodyContainer>
-            <GB>
-                <GBScreen scroll theme={theme}>
-                    {props.children}
-                </GBScreen>
-            </GB>
 
 
             <BodyFold 
                 selectedPokemon = {props.selectedPokemon}
+                pokedexInfo = {props.pokedexInfo}
                 generations={props.generations} 
                 theme={theme}
                 genClick={props.genClick}

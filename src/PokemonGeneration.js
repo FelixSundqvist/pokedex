@@ -1,5 +1,5 @@
 const generations = [
-    {start: 0, end: 151},
+    {start: 721, end: 20},
     {start: 151, end: 100},
     {start: 251, end: 135},
     {start: 386, end: 107},

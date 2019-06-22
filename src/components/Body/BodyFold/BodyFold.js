@@ -2,8 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import GBController from '../GBController/GBController';
 import GBScreen from '../GBScreen/GBScreen';
+import PokedexInfo from '../../PokedexInfo/PokedexInfo';
 
-const BodyFold = ({theme, generations, genClick, selectedPokemon}) => {
+const BodyFold = React.memo((
+    {
+        theme, 
+        generations, 
+        genClick, 
+        selectedPokemon, 
+        pokedexInfo
+    }) => {
 
     const StyledFold = styled.div`
         position: relative;
@@ -43,16 +51,16 @@ const BodyFold = ({theme, generations, genClick, selectedPokemon}) => {
 
 
         <ScreenWrapper>
-        
-            <GBScreen theme={theme}>
-
+            <GBScreen scroll theme={theme}>
+                <PokedexInfo
+                    pokedexInfo={pokedexInfo} 
+                    selectedPokemon={selectedPokemon} />
             </GBScreen>
-        
         </ScreenWrapper>
 
         <GBController theme={theme}/>
     
     </StyledFold>)
-}
+});
 
 export default BodyFold;

@@ -9,7 +9,9 @@ const Card = props => {
         background-color: white;
         margin: 10px;
         text-transform: capitalize;
-
+        &:hover{
+            cursor: pointer;
+        }
     `
     const Image = styled.div`
         margin:0 auto;
@@ -22,8 +24,8 @@ const Card = props => {
     `
 
     return (
-    <StyledCard>
-        <Image />
+    <StyledCard onClick={()=> props.onClick(props.name)} >
+        <Image/>
         <p>{props.name}</p>
     </StyledCard>)
 }
