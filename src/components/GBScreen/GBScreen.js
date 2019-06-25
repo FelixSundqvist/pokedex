@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 const GBScreen = props => {
     const { theme } = props;
@@ -22,7 +22,7 @@ const GBScreen = props => {
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-evenly;
-        overflow: ${props.scroll ? "scroll" : null};
+        overflow: scroll;
     `
     return ( 
         <ScreenFrame>
@@ -33,4 +33,4 @@ const GBScreen = props => {
     )
 }
 
-export default GBScreen;
+export default withTheme(GBScreen);

@@ -10,6 +10,8 @@ const Types = ({ type }) => {
         height: 10px;
         margin: 8px;
         color: white;
+        text-transform: uppercase;
+        font-family: sans-serif;
     `
     let bgColor = "#BFBCB6";
     switch(type){

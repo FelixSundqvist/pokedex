@@ -1,63 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Body from '../../components/Body/Body';
-import CardList from '../../components/CardList/CardList';
-import generations from '../../PokemonGeneration';
+import { withTheme } from 'styled-components';
+import Body from '../Body/Body';
 import * as actionTypes from '../../store/actions/actionTypes';
+import PokedexButtons from './PokedexButtons';
 
-const Pokedex = props => {
-    const { 
-        theme, 
-        selectedGen, 
-        fetchAllPokemons, 
-        genClick, 
-        fetchSelectedPokemon,
-        selectedPokemon, 
-        selectedPokemonId,
-        pokedexInfo
-    } = props;
-
-    const StyledPokedex = styled.div`
-        height: 100vh;
-        width: 100vw;
-    `
+const Pokedex = React.memo(props => {
+    const { fetchAllPokemons, selectedGen, selectedPokemonId } = props;
+    
     useEffect(() => {
         fetchAllPokemons(selectedGen)
-    }, [selectedGen])
+    }, [selectedGen, fetchAllPokemons])
 
-    useEffect(() => {
-        fetchSelectedPokemon(selectedPokemonId);
-    }, [selectedPokemonId]);
-                
-    /*<CardList 
-    items = {props.pokemons} />*/
+
+    const body = !props.isLoading
+        ?        
+        <Body 
+            pokemons={props.pokemons}
+            loadingCurrent = {props.isLoadingCurrent}
+            selected = {selectedPokemonId}
+            /> : null
+ 
 
     return (
-    <StyledPokedex>
-        <Body 
-            theme={theme} 
-            generations={generations} 
-            genClick={(gen) => genClick(gen)}
-            selectedPokemon = {selectedPokemon}
-            pokedexInfo = {pokedexInfo}>
-
-
-        </Body>
-    </StyledPokedex>)
-}
+    <div style={{flex: "1"}}>
+        <PokedexButtons theme={props.theme} genClick={props.genClick}/>
+        {body}
+    </div>)
+})
 const mapStateToProps = (state) => ({
     pokemons: state.pokemons,
     selectedGen: state.selectedGen,
     selectedPokemonId: state.selectedPokemonId,
-    selectedPokemon: state.selectedPokemon,
-    pokedexInfo: state.pokedexInfo
+    isLoadingCurrent: state.isLoadingCurrent
 })
 
 const mapDispatchToProps = (dispatch) => ({
     fetchAllPokemons: (selectedGen) => dispatch({type: actionTypes.FETCH_PKMN_START, selectedGen: selectedGen}),
-    fetchSelectedPokemon: (id) => dispatch({type: actionTypes.FETCH_CURRENT_PKMN_START, id: id}),
-    genClick: (gen) => dispatch({ type: actionTypes.CHANGE_GEN, selectedGen: gen })
+    genClick: (gen) => dispatch({ type: actionTypes.CHANGE_GEN, selectedGen: gen }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pokedex);
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Pokedex));
