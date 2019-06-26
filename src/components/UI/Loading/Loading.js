@@ -3,11 +3,8 @@ import React from 'react'
 const Loading = () => 
     <div style={
         {
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%", 
-            height: "100%", 
+            minWidth: "100%", 
+            minHeight: "100%", 
             zIndex: 9999,
             color: "white"
         }}>

@@ -15,11 +15,14 @@ const GBScreen = props => {
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-    
+        margin: 16px;
+        @media (max-width: 768px){
+            margin: 0;
+        }
     `    
     const ScreenInner = styled.div`
-        height: 100%;
-        width: 100%;
+        min-height: 100%;
+        min-width: 100%;
         background-color: ${theme.palette.black};
         display: flex;
         flex-wrap: wrap;

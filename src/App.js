@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components';
 import './App.css';
 import Header from './components/Header/Header';
 import Pokedex from './containers/Pokédex/Pokédex';
-import Loading from './components/Loading/Loading';
+import Loading from './components/UI/Loading/Loading';
 const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/CurrentPokemon'));
 
 function App(props) {

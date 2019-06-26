@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 /* import GBController from '../../components/Body/GBController/GBController'; */
 import GBScreen from '../../components/GBScreen/GBScreen';
 import PokedexInfo from '../../components/PokedexInfo/PokedexInfo';
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../components/UI/Loading/Loading';
 
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
@@ -31,10 +31,6 @@ const CurrentPokemon = React.memo((
         }
     }, [pokedexInfo, fetchEvoChain])
 
-    const GB = styled.div`
-        height: 100%;
-        width: 100%;
-    `
     const pokemon = !isLoadingCurrent ?                 
     <PokedexInfo 
         pokedexInfo={pokedexInfo} 
@@ -45,11 +41,9 @@ const CurrentPokemon = React.memo((
 
     return (
         <Wrapper>
-            <GB>
-                <GBScreen>
-                    { pokemon } 
-                </GBScreen>
-            </GB>
+            <GBScreen>
+                { pokemon } 
+            </GBScreen>
         </Wrapper>
     )
 });

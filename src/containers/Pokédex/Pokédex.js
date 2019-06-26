@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import Body from '../../components/Body/Body';
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../components/UI/Loading/Loading';
+import CardList from '../../components/CardList/CardList';
+import GBScreen from '../../components/GBScreen/GBScreen';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen, selectedPokemonId } = props;
+    const pokemons = useRef(null);
     
+    pokemons.current = !props.isLoading 
+
     useEffect(() => {
         fetchAllPokemons(selectedGen)
     }, [selectedGen, fetchAllPokemons])
-    const body = !props.isLoading
+    pokemons.current = !props.isLoading
         ?        
-        <Body 
-            pokemons={props.pokemons}
-            loadingCurrent = {props.isLoadingCurrent}
-            selected = {selectedPokemonId}
-            /> : <Loading />
- 
-    return (
-    <Wrapper>
-        {body}
-    </Wrapper>)
+        <CardList 
+        selected={props.selected}
+        onClick={(id) => props.history.push("/id="+id)} 
+        items = {props.pokemons} /> 
+        : <Loading />
+
+    return (<Wrapper><GBScreen>{pokemons.current}</GBScreen></Wrapper>)
 })
 const mapStateToProps = (state) => ({
     pokemons: state.pokemons,

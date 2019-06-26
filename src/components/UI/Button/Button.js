@@ -7,15 +7,18 @@ const Button = props => {
     padding: 8px;
     flex: 0 0 50px;
     border-radius: 2vh;
-    background-color: ${props.theme.palette.secondary};
+    background-color: ${props.selected ? "#0f11cc" : props.theme.palette.secondary};
     border: 2px solid blue;
     cursor: pointer;
     font-size: .5;
-     &:hover{
+    
+    &:hover{
         background-color: white;
         color: ${props.theme.palette.secondary}
-     }
+    }
+    
     `
+    
 
     return(<StyledButton onClick={props.onClick}>{props.children}</StyledButton>)
 }

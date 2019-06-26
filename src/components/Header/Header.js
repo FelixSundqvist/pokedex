@@ -16,9 +16,9 @@ const Header = props => {
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.1);
     position: relative;
     h1{
-        line-height: 20vh;
+        line-height: 10vh;
         margin: 0;
-        font-size: 6vw;
+        font-size: 4vw;
         vertical-align: middle;
     }`
 
@@ -26,14 +26,17 @@ const Header = props => {
     return (
         <StyledHeader>
             <h1>Pokedex</h1>
-            <ChangeGenButtons genClick={props.genClick} />
+            <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
             <PokedexScanner />
             
         </StyledHeader>)
 }
 
+const mapStateToProps = state => ({
+    currentGen: state.selectedGen
+})
 const mapDispatchToProps = (dispatch) => ({
     genClick: (gen) => dispatch({ type: actionTypes.CHANGE_GEN, selectedGen: gen }),
 })
 
-export default connect(null, mapDispatchToProps)(withTheme(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Header));
