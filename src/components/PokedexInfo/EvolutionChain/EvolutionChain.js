@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from '../../CardList/Card/Card';
-import { getIDFromURL } from '../../../utility';
+import { getIDFromURL, createArr } from '../../../utility';
 const EvolutionChain = props => {
     const { evoChain } = props;
     if(!evoChain.chain) {
@@ -16,34 +16,26 @@ const EvolutionChain = props => {
         align-items: center;
         color: black;
     `
-    const createArr = (arr, newItem) => {
-        return [...arr, newItem]
 
+    const checkEvoChain = evolution => evolution.evolves_to && evolution.evolves_to.length > 0
+    
+    const checkEvolution = (evolution, arr = []) => {
+        arr.push(evolution);
+        if(checkEvoChain(evolution))evolution.evolves_to.map(cur => checkEvolution(cur, arr))
+        return arr
     }
-    const checkEvolution = (evolution, arr=[]) => {
-        let newArr = createArr(arr, evolution)
-        if(evolution.evolves_to && evolution.evolves_to.length >= 1){
-            for(let i = 0;i < evolution.evolves_to.length; i++){
-                newArr.push(...checkEvolution(evolution.evolves_to[i]))
-            }
-        }
-        return newArr
-    }
-    const evolutionBranch = checkEvolution(evoChain.chain).map(cur => 
-            <Card
+    const evolutionBranch = checkEvolution(evoChain.chain).map(cur => <Card
                 onClick={props.onClick}
                 key={cur.species.name} 
                 id={getIDFromURL(cur.species.url)}
                 name={cur.species.name}
-                 />)
+        />)
 
-
-    
     return (
     <div>
         <h4>Evolution Chain</h4>
         {babyItems}
-        <EvolutionWrapper>{evolutionBranch}</EvolutionWrapper>
+            <EvolutionWrapper>{evolutionBranch}</EvolutionWrapper>
     </div>)
 }
 

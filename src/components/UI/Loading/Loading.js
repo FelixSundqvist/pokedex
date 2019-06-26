@@ -9,7 +9,7 @@ const Loading = () =>
             color: "white"
         }}>
 
-            <h1>LOADING</h1>
+        <h1>LOADING</h1>
     
     </div>
 

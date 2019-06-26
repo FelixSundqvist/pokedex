@@ -16,10 +16,6 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(mySaga);
 
-if (process.env.NODE_ENV !== 'production') {
-    const whyDidYouRender = require('@welldone-software/why-did-you-render');
-    whyDidYouRender(React);
-}
 ReactDOM.render(
     <Provider store={store} >
         <BrowserRouter basename="https://felixsundqvist.github.io/pokedex/">

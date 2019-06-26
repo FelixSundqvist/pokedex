@@ -35,5 +35,4 @@ const Card = ({name, id, onClick, selected}) => {
         <p>{name}</p>
     </StyledCard>)
 }
-Card.whyDidYouRender = true;
 export default Card;
