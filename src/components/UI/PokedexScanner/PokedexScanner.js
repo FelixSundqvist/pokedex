@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import lensIcon from '../../assets/pokedex-lens.svg';
+import lensIcon from '../../../assets/pokedex-lens.svg';
 
 const PokedexScanner = () => {
     const PokeScanner = styled.div`

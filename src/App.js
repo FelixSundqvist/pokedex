@@ -4,6 +4,7 @@ import { withTheme } from 'styled-components';
 import './App.css';
 import Header from './components/Header/Header';
 import Pokedex from './containers/Pokédex/Pokédex';
+import Loading from './components/Loading/Loading';
 const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/CurrentPokemon'));
 
 function App(props) {
@@ -18,9 +19,7 @@ function App(props) {
           overflow: "hidden"
           }}>
         <Route path="/" component={Pokedex} />
-        <Suspense fallback={<h1 style={
-          {position: "absolute", top: "50%", left:"50%", transform: "translate(-50%, -50%)"}
-          }>LOADING</h1>}>
+        <Suspense fallback={<Loading />}>
           <Route path="/id=:id" component={CurrentPokemon} />
         </Suspense>
         

@@ -11,6 +11,10 @@ const Button = props => {
     border: 2px solid blue;
     cursor: pointer;
     font-size: .5;
+     &:hover{
+        background-color: white;
+        color: ${props.theme.palette.secondary}
+     }
     `
 
     return(<StyledButton onClick={props.onClick}>{props.children}</StyledButton>)

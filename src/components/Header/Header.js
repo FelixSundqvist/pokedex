@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import { connect } from 'react-redux';
-import PokedexScanner from '../PokedexScanner/PokedexScanner';
-import ChangeGenButtons from '../ChangeGenButtons/ChangeGenButtons';
+import PokedexScanner from '../UI/PokedexScanner/PokedexScanner';
+import ChangeGenButtons from '../UI/ChangeGenButtons/ChangeGenButtons';
 import * as actionTypes from '../../store/actions/actionTypes';
 
 const Header = props => {

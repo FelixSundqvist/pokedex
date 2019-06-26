@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import styled, { withTheme } from 'styled-components';
+
 import Types from './Types/Types';
-import Button from '../Button/Button';
+import Button from '../UI/Button/Button';
 import DexEntry from './DexEntry/DexEntry';
 import InfoImage from './InfoImage/InfoImage';
 import FormButton from './FormButton/FormButton';
 import Stats from './Stats/Stats';
 import EvolutionChain from './EvolutionChain/EvolutionChain';
-
-const checkLetter = str => str.toUpperCase().replace(/É/, "E")
-const roundNum = (height, round) => Number.parseFloat(height * round).toFixed(2)
+import { roundNum, checkLetter } from '../../utility';
 
 const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, theme, evoChain, evolutionClick}) => {
 

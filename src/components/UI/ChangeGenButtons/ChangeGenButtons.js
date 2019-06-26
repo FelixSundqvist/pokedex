@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components';
-import generations from '../../PokemonGeneration';
+import generations from '../../../PokemonGeneration';
 import Button from '../Button/Button';
 
 const ChangeGenButtons = React.memo(props => {

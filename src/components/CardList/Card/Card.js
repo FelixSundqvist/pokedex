@@ -17,7 +17,6 @@ const Card = ({name, id, onClick, selected}) => {
         &:hover{
             opacity: 0.8;
         }
-
         transition: opacity 100ms ease;
     `
     const Image = styled.div`

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import styled, { withTheme } from 'styled-components';
 import Body from '../../components/Body/Body';
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
+import Loading from '../../components/Loading/Loading';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen, selectedPokemonId } = props;
@@ -17,7 +17,7 @@ const Pokedex = React.memo(props => {
             pokemons={props.pokemons}
             loadingCurrent = {props.isLoadingCurrent}
             selected = {selectedPokemonId}
-            /> : null
+            /> : <Loading />
  
     return (
     <Wrapper>
@@ -35,4 +35,4 @@ const mapDispatchToProps = (dispatch) => ({
     fetchAllPokemons: (selectedGen) => dispatch({type: actionTypes.FETCH_PKMN_START, selectedGen: selectedGen}),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Pokedex));
+export default connect(mapStateToProps, mapDispatchToProps)(Pokedex);
