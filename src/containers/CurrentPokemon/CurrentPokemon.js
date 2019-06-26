@@ -7,6 +7,7 @@ import PokedexInfo from '../../components/PokedexInfo/PokedexInfo';
 import Loading from '../../components/Loading/Loading';
 
 import * as actionTypes from '../../store/actions/actionTypes';
+import Wrapper from '../../components/Wrapper/Wrapper';
 
 const CurrentPokemon = React.memo((
     {
@@ -15,55 +16,55 @@ const CurrentPokemon = React.memo((
         pokedexInfo,
         isLoadingCurrent,
         match,
-        fetchSelectedPokemon
+        history,
+        fetchSelectedPokemon,
+        fetchEvoChain,
+        evoChain
     }) => {
     useEffect(() => { 
         fetchSelectedPokemon(match.params.id);
     },[fetchSelectedPokemon, match])
 
-    const StyledFold = styled.div`
-        position: relative;
-        height: 800px;
-        width: 800px;
-        margin: 0 auto;
-        background-color: ${theme.palette.primary};
-        box-shadow: 5px 10px 10px ${theme.palette.black};
-    `
-    const ScreenWrapper = styled.div`
-        height: 600px;
-        width: 600px;
-        margin: 16px auto;
-        @media (max-width: 768px){
-            height: 400px;
-            width: 400px;
+    useEffect(() => {
+        if(pokedexInfo.evolution_chain && pokedexInfo){
+            fetchEvoChain(pokedexInfo.evolution_chain.url)
         }
+    }, [pokedexInfo, fetchEvoChain])
+
+    const GB = styled.div`
+        height: 100%;
+        width: 100%;
     `
-    
     const pokemon = !isLoadingCurrent ?                 
-    <PokedexInfo pokedexInfo={pokedexInfo} selectedPokemon={selectedPokemon} /> : <Loading />
+    <PokedexInfo 
+        pokedexInfo={pokedexInfo} 
+        selectedPokemon={selectedPokemon}
+        evoChain={evoChain}
+        evolutionClick={(id) => history.push("/id="+id)}
+         /> : <Loading />
 
     return (
-    <StyledFold>
-        
-        <ScreenWrapper>
-            <GBScreen>
-               { pokemon } 
-            </GBScreen>
-        </ScreenWrapper>
-
-    
-    </StyledFold>)
+        <Wrapper>
+            <GB>
+                <GBScreen>
+                    { pokemon } 
+                </GBScreen>
+            </GB>
+        </Wrapper>
+    )
 });
 
 const mapStateToProps = (state) => ({
     selectedPokemonId: state.selectedPokemonId,
     selectedPokemon: state.selectedPokemon,
     pokedexInfo: state.pokedexInfo,
-    isLoadingCurrent: state.isLoadingCurrent
+    isLoadingCurrent: state.isLoadingCurrent,
+    evoChain: state.evolutionChain
 })
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSelectedPokemon: (id) => dispatch({type: actionTypes.FETCH_CURRENT_PKMN_START, id: id}),
+    fetchEvoChain: (url) => dispatch({type: actionTypes.FETCH_EVO_CHAIN_START, evoChainURL: url})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(CurrentPokemon));

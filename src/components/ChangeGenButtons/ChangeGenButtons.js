@@ -1,0 +1,20 @@
+import React from 'react'
+import styled, { withTheme } from 'styled-components';
+import generations from '../../PokemonGeneration';
+import Button from '../Button/Button';
+
+const ChangeGenButtons = React.memo(props => {
+    const BtnWrapper = styled.div`
+        margin: 2vh auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+    `
+    const genButtons = generations.map((cur, index) => 
+    <Button key={"Gen"+index} onClick={() => props.genClick(index)}>Gen {index + 1} </Button>)
+
+    return <BtnWrapper>{ genButtons }</BtnWrapper>
+})
+export default withTheme(ChangeGenButtons);

@@ -1,0 +1,1 @@
+export const getIDFromURL = (url) => url.match(/\d{1,3}\/$/)[0].split("/")[0]

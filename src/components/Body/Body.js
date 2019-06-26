@@ -11,26 +11,10 @@ const Body = props => {
     const Body = styled.div`
         height: 100%;
         width: 100%;
-        padding: 5vh;
-        background-color: ${ props.theme.palette.primaryDark };
     `
-    const BodyContainer = styled.div`
-        position: relative;
-        margin: 0 auto;
-        width: 80%;
-        display: flex;
 
-        align-items:center;
-        justify-content: center;
-
-        @media screen and (max-width: 500px){
-            height: 300px;
-            width: 300px;
-        }
-    `
     const GB = styled.div`
-        height: 500px;
-        width: 500px; 
+        margin: 0 auto;
     `
 
     pokemons.current = !props.isLoading 
@@ -41,7 +25,7 @@ const Body = props => {
     : <Loading />
     return (
         <Body>
-            <BodyContainer>
+
             <GB>
                 <GBScreen>
                 
@@ -49,7 +33,7 @@ const Body = props => {
 
                 </GBScreen>
             </GB> 
-            </BodyContainer>
+
         </Body>
 
     )

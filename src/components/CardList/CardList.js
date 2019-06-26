@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Card from './Card/Card';
+import { getIDFromURL } from '../../utility';
 
 const CardList = ({ items, onClick, selected }) => {
     const cards = useMemo(() =>         
@@ -8,7 +9,7 @@ const CardList = ({ items, onClick, selected }) => {
             items.map(current => <Card 
                     onClick={onClick}
                     selected={selected}
-                    id={current.url.match(/\d{1,3}\/$/)[0].split("/")[0]}
+                    id={getIDFromURL(current.url)}
                     key={current.name} 
                     name={current.name}/>)
         }

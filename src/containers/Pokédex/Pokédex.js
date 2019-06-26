@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withTheme } from 'styled-components';
-import Body from '../Body/Body';
+import styled, { withTheme } from 'styled-components';
+import Body from '../../components/Body/Body';
 import * as actionTypes from '../../store/actions/actionTypes';
-import PokedexButtons from './PokedexButtons';
+import Wrapper from '../../components/Wrapper/Wrapper';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen, selectedPokemonId } = props;
@@ -11,8 +11,6 @@ const Pokedex = React.memo(props => {
     useEffect(() => {
         fetchAllPokemons(selectedGen)
     }, [selectedGen, fetchAllPokemons])
-
-
     const body = !props.isLoading
         ?        
         <Body 
@@ -21,12 +19,10 @@ const Pokedex = React.memo(props => {
             selected = {selectedPokemonId}
             /> : null
  
-
     return (
-    <div style={{flex: "1"}}>
-        <PokedexButtons theme={props.theme} genClick={props.genClick}/>
+    <Wrapper>
         {body}
-    </div>)
+    </Wrapper>)
 })
 const mapStateToProps = (state) => ({
     pokemons: state.pokemons,
@@ -37,7 +33,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchAllPokemons: (selectedGen) => dispatch({type: actionTypes.FETCH_PKMN_START, selectedGen: selectedGen}),
-    genClick: (gen) => dispatch({ type: actionTypes.CHANGE_GEN, selectedGen: gen }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Pokedex));

@@ -5,24 +5,19 @@ const GBScreen = props => {
     const { theme } = props;
 
     const ScreenFrame = styled.div`
-        background-color: ${theme.palette.white};
-        height: 100%;
-        width: 100%;
-        border: .4vw solid black;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        max-height: 700px;
+        max-width: 700px;
+        overflow: scroll;
+        margin: 16px auto;
     `    
     const ScreenInner = styled.div`
-        height: 80%;
-        width: 80%;
+
         background-color: ${theme.palette.black};
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: space-evenly;
-        overflow: scroll;
+        justify-content: center;
+        padding: 4vw;
     `
     return ( 
         <ScreenFrame>

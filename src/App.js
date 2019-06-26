@@ -8,15 +8,14 @@ const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/Curr
 
 function App(props) {
   return (
-    <div className="App" style={{backgroundColor: props.theme.palette.primaryDark}}>
+    <div className="App" style={{backgroundColor: props.theme.palette.primary}}>
       <Header />
       <div style={
         { 
           width: "100%", 
           display: "flex", 
-          alignItems: "center", 
-          justifyContent:"center",
-          flexWrap: "wrap"
+          flexWrap: "wrap",
+          overflow: "hidden"
           }}>
         <Route path="/" component={Pokedex} />
         <Suspense fallback={<h1 style={

@@ -7,7 +7,7 @@ const PokedexScanner = () => {
         position: absolute;
         bottom: 0;
         left: 0;
-        transform: translate(50%, 50%);
+
         background-image: url(${lensIcon});
         background-size: contain;
         height: 8vw;
