@@ -12,6 +12,8 @@ const FormButton = props => {
         border: none;
         text-transform: capitalize;
     `
+    /*TODO: add check for totem pokemon
+    TODO: add  UsUm models*/
     return <FormButton onClick={props.onClick}>{props.children}</FormButton>
 }
 
