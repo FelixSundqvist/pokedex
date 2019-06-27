@@ -30,7 +30,7 @@ const EvolutionChain = props => {
                 id={getIDFromURL(cur.species.url)}
                 name={cur.species.name}
         />)
-    console.log("re-render")
+
     return (
     <div>
         <h4>Evolution Chain</h4>

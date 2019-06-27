@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import styled, { withTheme } from 'styled-components';
+import { withTheme } from 'styled-components';
 import { connect } from 'react-redux';
 /* import GBController from '../../components/Body/GBController/GBController'; */
 import GBScreen from '../../components/GBScreen/GBScreen';
