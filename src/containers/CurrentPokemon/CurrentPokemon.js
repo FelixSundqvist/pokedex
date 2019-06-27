@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import styled, { withTheme } from 'styled-components';
 import { connect } from 'react-redux';
 /* import GBController from '../../components/Body/GBController/GBController'; */
@@ -21,15 +21,14 @@ const CurrentPokemon = React.memo((
         fetchEvoChain,
         evoChain
     }) => {
-    useEffect(() => { 
-        fetchSelectedPokemon(match.params.id);
-    },[fetchSelectedPokemon, match])
 
-    useEffect(() => {
-        if(pokedexInfo.evolution_chain && pokedexInfo){
-            fetchEvoChain(pokedexInfo.evolution_chain.url)
-        }
-    }, [pokedexInfo, fetchEvoChain])
+    const fetch = useCallback(
+        () => {
+            fetchSelectedPokemon(match.params.id);
+        },[match.params.id, fetchSelectedPokemon], )
+    useEffect(() => { 
+        fetch();
+    },[fetch])
 
     const pokemon = !isLoadingCurrent ?                 
     <PokedexInfo 
@@ -58,7 +57,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSelectedPokemon: (id) => dispatch({type: actionTypes.FETCH_CURRENT_PKMN_START, id: id}),
-    fetchEvoChain: (url) => dispatch({type: actionTypes.FETCH_EVO_CHAIN_START, evoChainURL: url})
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(CurrentPokemon));

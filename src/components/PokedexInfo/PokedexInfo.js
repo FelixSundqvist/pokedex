@@ -10,7 +10,7 @@ import Stats from './Stats/Stats';
 import EvolutionChain from './EvolutionChain/EvolutionChain';
 import { roundNum, checkLetter } from '../../utility';
 
-const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, theme, evoChain, evolutionClick}) => {
+const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, evoChain, evolutionClick}) => {
 
     const [imageLink, changeImageLink] 
         = useState(`http://felixsundqvist.org/pokemon/${selectedPokemon.name}.gif`)

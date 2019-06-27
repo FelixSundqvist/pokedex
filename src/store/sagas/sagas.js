@@ -22,7 +22,9 @@ function* startFetchAll(actions){
 function* startFetchSelected(actions){
 
     try{
+
         yield put({type: actionTypes.LOADING_CURRENT_PKMN })
+
         const selectedPokemon = yield call(
             ()=> axios.get('https://pokeapi.co/api/v2/pokemon/'+actions.id)
             .then(res => res.data)
@@ -33,13 +35,16 @@ function* startFetchSelected(actions){
             ()=> axios.get('https://pokeapi.co/api/v2/pokemon-species/'+actions.id)
             .then(res => res.data)
             .then(data => data)
-            .catch(err => console.log(err)));  
+            .catch(err => console.log(err))); 
+
+        yield put({type: actionTypes.FETCH_EVO_CHAIN_START, evoChainURL: pokedexInfo.evolution_chain.url})
 
         yield put({
             type: actionTypes.FETCH_CURRENT_PKMN_SUCCESS, 
             selectedPokemonId: actions.id,
             selectedPokemon: selectedPokemon,
-            pokedexInfo: pokedexInfo});
+            pokedexInfo: pokedexInfo,
+        });
     }catch(e){
         yield put({type: actionTypes.FETCH_CURRENT_PKMN_FAIL, error: e});
     }
@@ -52,9 +57,8 @@ function* startFetchEvoChain(actions){
         yield put({
         type: actionTypes.FETCH_EVO_CHAIN_SUCCESS,
         evolutionChain: evoChain.data
-        })
+    })
    }catch(e){
-    console.log(e)
     yield put({
         type: actionTypes.FETCH_EVO_CHAIN_FAIL
     })

@@ -7,7 +7,7 @@ import CardList from '../../components/CardList/CardList';
 import GBScreen from '../../components/GBScreen/GBScreen';
 
 const Pokedex = React.memo(props => {
-    const { fetchAllPokemons, selectedGen, selectedPokemonId } = props;
+    const { fetchAllPokemons, selectedGen  } = props;
     const pokemons = useRef(null);
     
     pokemons.current = !props.isLoading 
