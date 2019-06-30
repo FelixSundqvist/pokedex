@@ -26,7 +26,10 @@ const Header = props => {
     return (
         <StyledHeader>
             <h1>Pokedex</h1>
-            <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
+            <div>
+                <h3>Generation: </h3>
+                <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
+            </div>
             <PokedexScanner />
             
         </StyledHeader>)

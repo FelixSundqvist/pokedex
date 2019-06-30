@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { withTheme } from 'styled-components';
 import './App.css';
@@ -8,6 +8,7 @@ import Loading from './components/UI/Loading/Loading';
 const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/CurrentPokemon'));
 
 function App(props) {
+
   return (
     <div className="App" style={{backgroundColor: props.theme.palette.primary}}>
       <Header />

@@ -11,10 +11,17 @@ const FormButton = props => {
         color: white;
         border: none;
         text-transform: capitalize;
+        box-shadow: 3px 0px 12px #666;
+        transition: 100ms ease-in;
+        &:hover{
+            background-color: blue;
+            cursor: pointer;
+        }
     `
     /*TODO: add check for totem pokemon
     TODO: add  UsUm models*/
-    return <FormButton onClick={props.onClick}>{props.children}</FormButton>
+    
+    return !props.children.includes("totem") ? <FormButton onClick={props.onClick}>{props.children}</FormButton> : null;
 }
 
 export default withTheme(FormButton)

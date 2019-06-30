@@ -25,10 +25,10 @@ const CurrentPokemon = React.memo((
     const fetch = useCallback(
         () => {
             fetchSelectedPokemon(match.params.id);
-        },[match.params.id, fetchSelectedPokemon], )
-    useEffect(() => { 
-        fetch();
-    },[fetch])
+        },[match.params.id, fetchSelectedPokemon]
+    )
+    
+    useEffect(() => { fetch() }, [fetch])
 
     const pokemon = !isLoadingCurrent ?                 
     <PokedexInfo 
@@ -57,7 +57,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSelectedPokemon: (id) => dispatch({type: actionTypes.FETCH_CURRENT_PKMN_START, id: id}),
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTheme(CurrentPokemon));

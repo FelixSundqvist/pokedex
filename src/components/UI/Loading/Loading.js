@@ -1,16 +1,35 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+import loadinImage from '../../../assets/loading.gif';
+const Loading = () => {
+    const LoadingWrapper = styled.div`
+        width: 100%;
+        height: 100%;
+        color: white;
+        span:nth-child(1){
+            animation: loading 300ms linear 100ms infinite;
+        }
+        span:nth-child(2){
+            animation: loading 300ms linear 150ms infinite;
+        }
+        span:nth-child(3){
+            animation: loading 300ms linear 200ms infinite;
+        }
 
-const Loading = () => 
-    <div style={
-        {
-            minWidth: "100%", 
-            minHeight: "100%", 
-            zIndex: 9999,
-            color: "white"
-        }}>
-
-        <h1>LOADING</h1>
+        @keyframes loading {
+            from{
+                opacity: 1;
+            }
+            to{
+                opacity: 0;
+            }
+        }
+    `
     
-    </div>
+    return <LoadingWrapper>
+        <img src={loadinImage} alt="loading" />
+        <h1>LOADING<span>.</span><span>.</span><span>.</span></h1>
+    </LoadingWrapper>
+}
 
 export default Loading;
