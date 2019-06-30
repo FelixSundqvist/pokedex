@@ -18,6 +18,7 @@ const EvolutionChain = props => {
     const EvoMethod = styled.div`
         color: white; 
         border: 2px solid yellow;
+        padding: 8px;
         font-size: .5rem;
     `
     const checkEvoChain = evolution => evolution.evolves_to && evolution.evolves_to.length > 0
@@ -33,21 +34,30 @@ const EvolutionChain = props => {
             return
         }
 
-        return evolution_details.map(cur => Object.keys(cur)
+        return evolution_details.map((cur, id) => Object.keys(cur)
             .map(currentMethod => {
                 return cur[currentMethod] 
-                ? <p key={currentMethod}>{currentMethod.replace('_', ' ')}: 
+                ? <p key={currentMethod+id}>{currentMethod.replace(/_/g, ' ')}: 
                     {
                         cur[currentMethod].name ? cur[currentMethod].name : cur[currentMethod]
                     } 
                     </p> 
                 : null})
-            .filter(current => current !== null))
-        .reduce((a, b) => a.concat(b), [])
+            .filter(current => {
+                if(current === null){
+                    return false
+                }else if(current && current.key === "trigger"){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }))
+        .reduce((a, b) => a.concat(b), []) // flatten
     };
     const evolutionBranch = checkEvolution(evoChain.chain).map((cur, id) => 
             <React.Fragment key={cur.species.name} >
-            {id > 0  ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> :null}
+            {id > 0  ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> : null}
             <Card
                 onClick={props.onClick}
                 id={getIDFromURL(cur.species.url)}
