@@ -7,8 +7,8 @@ const GBScreen = props => {
     const ScreenFrame = styled.div`
         max-height: 800px;
         max-width: 800px;
-        min-height: 300px;
-        min-width: 300px;
+        height: 100%;
+        width: 100%;
         overflow: scroll;
         margin: 16px auto;
         display: flex;
@@ -31,7 +31,7 @@ const GBScreen = props => {
     
     `
     return ( 
-        <ScreenFrame>
+        <ScreenFrame onWheel={props.onWheel}>
             <ScreenInner>
                     {props.children}
             </ScreenInner>
