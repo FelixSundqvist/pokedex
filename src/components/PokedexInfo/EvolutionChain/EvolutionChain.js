@@ -15,7 +15,7 @@ const EvolutionChain = props => {
         align-items: center;
         color: black;
     `
-
+    
     const checkEvoChain = evolution => evolution.evolves_to && evolution.evolves_to.length > 0
     
     const checkEvolution = (evolution, arr = []) => {
@@ -23,7 +23,7 @@ const EvolutionChain = props => {
         if(checkEvoChain(evolution))evolution.evolves_to.map(cur => checkEvolution(cur, arr))
         return arr
     }
-
+ 
     const evolutionBranch = checkEvolution(evoChain.chain).map(cur => <Card
                 onClick={props.onClick}
                 key={cur.species.name} 

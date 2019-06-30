@@ -9,8 +9,12 @@ const InfoImage = props => {
         background-size: contain;
         background-position: 50% 50%;
     `
-
-    return <StyledImage name={props.imageLink} />
+    if(props.imageLink === "undefined"){
+        return <StyledImage name={props.imageLink} />
+    }else{
+        return <p>No image</p>
+    }
+    
 }
 
 export default InfoImage;
