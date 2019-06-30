@@ -17,7 +17,7 @@ const ChangeGenButtons = React.memo(props => {
         key={"Gen"+index} 
         onClick={() => props.genClick(index)}
         selected={props.currentGen + 1 === index + 1}
-        >Gen {index + 1} </Button>)
+        >{index + 1} </Button>)
 
     return <BtnWrapper>{ genButtons }</BtnWrapper>
 })

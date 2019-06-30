@@ -9,20 +9,18 @@ import GBScreen from '../../components/GBScreen/GBScreen';
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;
     const pokemons = useRef(null);
-    
     pokemons.current = !props.isLoading 
-
     useEffect(() => {
         fetchAllPokemons(selectedGen)
     }, [selectedGen, fetchAllPokemons])
-    pokemons.current = !props.isLoading
-        ?        
-        <CardList 
-        selected={props.selected}
-        onClick={(id) => props.history.push("/id="+id)} 
-        items = {props.pokemons} /> 
-        : <Loading />
 
+    pokemons.current = !props.isLoading
+        ?   <CardList 
+                selected={props.selected}
+                onClick={(id) => props.history.push("/id="+id)} 
+                items = {props.pokemons} /> 
+        : null;
+    /* const scroll = e => console.log(e) */
     return (<Wrapper><GBScreen>{pokemons.current}</GBScreen></Wrapper>)
 })
 const mapStateToProps = (state) => ({
