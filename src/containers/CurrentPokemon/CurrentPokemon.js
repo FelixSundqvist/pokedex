@@ -37,7 +37,7 @@ const CurrentPokemon = React.memo((
          /> : <Loading /> 
 
     return (
-        <Wrapper>
+        <Wrapper scanner>
             {pokemon}
         </Wrapper>
     )

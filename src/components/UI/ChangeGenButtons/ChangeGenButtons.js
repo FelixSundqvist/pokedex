@@ -5,12 +5,13 @@ import Button from '../Button/Button';
 
 const ChangeGenButtons = React.memo(props => {
     const BtnWrapper = styled.div`
-        margin: 2vh auto;
+        margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        line-height: 1;
+        justify-content: space-evenly;
+        @media screen and (max-width: 768px){
+            font-size: 2vw;
+        }
     `
     const genButtons = generations.map((cur, index) => 
     <Button 

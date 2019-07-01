@@ -1,33 +1,34 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import { connect } from 'react-redux';
-import PokedexScanner from '../UI/PokedexScanner/PokedexScanner';
 import ChangeGenButtons from '../UI/ChangeGenButtons/ChangeGenButtons';
 import * as actionTypes from '../../store/actions/actionTypes';
 
 const GenButtons = props => {
     const StyledGens = styled.header`
-    margin: 0;
     width: 100%;
+    height: 20%;
     font-family: sans-serif;
     color: white;
     /* box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.1); */
     position:relative;
-    h1{
-        line-height: 10vh;
+    p{
         margin: 0;
-        font-size: 4vw;
-        vertical-align: middle;
-    }`
+        padding: 0;
+        
+    }
+    @media screen and (max-width: 768px){
+        h4{
+            font-size: 1vw;
+        }
+    }
+    `
 
 
     return (
         <StyledGens>
-            <div>
-                <h3>Generation: </h3>
-                <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
-            </div>
-            <PokedexScanner />
+            <p>Gen</p>
+            <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
             
         </StyledGens>)
 }

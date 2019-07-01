@@ -14,7 +14,9 @@ const Loading = () => {
         }
         span:nth-child(3){
             animation: loading 300ms linear 200ms infinite;
-        }
+        }   
+
+        font-size: 2vw;
 
         @keyframes loading {
             from{
@@ -23,6 +25,10 @@ const Loading = () => {
             to{
                 opacity: 0;
             }
+        }
+
+        img{
+            width: 30%;
         }
     `
     

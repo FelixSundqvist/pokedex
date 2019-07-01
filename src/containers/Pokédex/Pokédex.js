@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import CardList from '../../components/CardList/CardList';
-import GenButtons from '../../components/GenButtons/GenButtons';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;

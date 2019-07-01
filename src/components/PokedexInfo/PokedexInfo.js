@@ -9,6 +9,7 @@ import Stats from './Stats/Stats';
 import EvolutionChain from './EvolutionChain/EvolutionChain';
 import { roundNum, checkLetter } from '../../utility';
 import Abilities from './Abilities/Abilities';
+import Moves from './Moves/Moves';
 
 const DexEntry = React.lazy(() => import('./DexEntry/DexEntry'));
 
@@ -16,19 +17,20 @@ const PokedexInfo = React.memo(props => {
     
     const {selectedPokemon, pokedexInfo, evoChain, evolutionClick} = props;
 
-    const [imageLink, changeImageLink] 
-        = useState(`http://felixsundqvist.org/pokemon/${selectedPokemon.name}.gif`)
     
+    const [imageLink] = useState(`http://felixsundqvist.org/pokemon/${selectedPokemon.name}.gif`)
+    const [showMoves, setShowMoves] = useState(false);
+    const [showEvolution, setShowEvolution] = useState(false);
+    const [showStats, setShowStats] = useState(false);
+
     const { flavor_text_entries, varieties, habitat } = pokedexInfo;
     const { moves, height, weight, abilities, stats } = selectedPokemon;
-
 
     const StyledInfo = styled.div`
         min-height: 100%;
         width: 100%;
         color: white;
         text-transform: capitalize;
-
     `
 
     const pokemonProperties = {
@@ -39,9 +41,9 @@ const PokedexInfo = React.memo(props => {
         formes: null,
         abilities: null,
         description: null,
-        moves: null,
         stats: null,
-        evolutionChain: null
+        evolutionChain: null,
+        moves: null
     }
     
     //DESCRIPTION
@@ -103,19 +105,39 @@ const PokedexInfo = React.memo(props => {
     
     //evolution chain
     pokemonProperties.evolutionChain = evoChain 
-    ? <EvolutionChain onClick={evolutionClick} key="evo chain" evoChain={evoChain}/> 
+    ? <EvolutionChain 
+        onClick={() => setShowEvolution(!showEvolution)} 
+        show = { showEvolution } 
+        key="evo chain" 
+        evoChain={evoChain}/> 
     : null;
                 
-    //stats, habitat
+    //stats, habitat, moves
     pokemonProperties.habitat = habitat ? <p key="habitat"> Habitat: { habitat.name }</p> : null;
-    pokemonProperties.stats = stats ? <Stats key="stats" stats={stats} /> : null;
-    
+
+    pokemonProperties.stats = stats 
+    ? <Stats 
+        key="stats" 
+        stats={stats} 
+        show={showStats}
+        onClick={() => setShowStats(!showStats)} />
+    : null;
+
+    pokemonProperties.moves = moves ? 
+        <Moves 
+            moves={moves} 
+            onClick={() => setShowMoves(!showMoves)} 
+            show={showMoves} 
+            key="moves" /> : null;
+
     const allPkmnProperties = Object.keys(pokemonProperties).map(cur => pokemonProperties[cur]);
 
     //3d gif
     const infoImage =  imageLink !== "http://felixsundqvist.org/pokemon/undefined.gif" 
         ? <InfoImage imageLink={imageLink} /> 
         : null;
+    
+    
 
     return(
         <StyledInfo>
@@ -126,7 +148,7 @@ const PokedexInfo = React.memo(props => {
             <h2>{selectedPokemon.name}</h2>
             {allPkmnProperties}
             
-            <Button>Add To Team</Button>
+           {/*  <Button>Add To Team</Button> */}
         </StyledInfo>
     )
 })
