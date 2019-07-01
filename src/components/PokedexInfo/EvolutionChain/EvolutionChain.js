@@ -37,16 +37,24 @@ const EvolutionChain = props => {
         return evolution_details.map((cur, id) => Object.keys(cur)
             .map(currentMethod => {
                 return cur[currentMethod] 
-                ? <p key={currentMethod+id}>{currentMethod.replace(/_/g, ' ')}: 
-                    {
-                        cur[currentMethod].name ? cur[currentMethod].name : cur[currentMethod]
-                    } 
-                    </p> 
+                ? <div key={currentMethod+id}>
+                        <p>{currentMethod.replace(/_/g, ' ')}: 
+                            {cur[currentMethod].name ? cur[currentMethod].name : cur[currentMethod]} 
+                        </p> 
+                        {
+                            cur[currentMethod] && cur[currentMethod].name && currentMethod.includes("item") 
+                            ? <img 
+                                src={`http://felixsundqvist.org/pokemon/evo-item/${cur[currentMethod].name}.png`} 
+                                alt={cur[currentMethod].name} /> 
+                            : null
+                        }
+                    </div>
                 : null})
             .filter(current => {
+
                 if(current === null){
                     return false
-                }else if(current && current.key === "trigger"){
+                }else if(current && current.key.includes("trigger")){
                     return false;
                 }
                 else{
@@ -57,13 +65,20 @@ const EvolutionChain = props => {
     };
     const evolutionBranch = checkEvolution(evoChain.chain).map((cur, id) => 
             <React.Fragment key={cur.species.name} >
-            {id > 0  ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> : null}
+                {
+                    id > 0  
+                        ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> 
+                        : null
+                }
             <Card
                 onClick={props.onClick}
                 id={getIDFromURL(cur.species.url)}
-                name={cur.species.name}/>
+                name={cur.species.name}
+                
+            />
                           
-            </React.Fragment>)
+            </React.Fragment>
+    )
 
     return (
     <div>

@@ -106,7 +106,7 @@ const PokedexInfo = React.memo(props => {
     : null;
                 
     //stats, habitat
-    pokemonProperties.habitat = habitat ?<p key="habitat"> Habitat: { habitat.name }</p> : null;
+    pokemonProperties.habitat = habitat ? <p key="habitat"> Habitat: { habitat.name }</p> : null;
     pokemonProperties.stats = stats ? <Stats key="stats" stats={stats} /> : null;
     
 
