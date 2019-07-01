@@ -18,7 +18,7 @@ sagaMiddleware.run(mySaga);
 
 ReactDOM.render(
     <Provider store={store} >
-        <BrowserRouter basename="https://felixsundqvist.github.io/pokedex/">
+        <BrowserRouter basename="/pokedex/">
             <ThemeProvider theme={theme}><App /></ThemeProvider> 
         </BrowserRouter>
     </Provider>, document.getElementById('root'));

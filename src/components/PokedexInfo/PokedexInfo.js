@@ -16,8 +16,6 @@ const DexEntry = React.lazy(() => import('./DexEntry/DexEntry'));
 const PokedexInfo = React.memo(props => {
     
     const {selectedPokemon, pokedexInfo, evoChain, evolutionClick} = props;
-
-    
     const [imageLink] = useState(`http://felixsundqvist.org/pokemon/${selectedPokemon.name}.gif`)
     const [showMoves, setShowMoves] = useState(false);
     const [showEvolution, setShowEvolution] = useState(false);
