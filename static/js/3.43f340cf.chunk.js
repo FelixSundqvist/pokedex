@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{89:function(n,r,e){"use strict";e.r(r);var t=e(7),a=e(0),c=e.n(a);function o(){var n=Object(t.a)(["\n    padding: 2vw;\n    background-color: white;\n    color: black;\n    font-family: sans-serif;\n"]);return o=function(){return n},n}var i=e(4).b.div(o());r.default=function(n){return c.a.createElement(i,null,n.children)}}}]);
+//# sourceMappingURL=3.43f340cf.chunk.js.map
