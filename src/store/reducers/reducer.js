@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     pokemons:[],
     selectedGen: 0,
-    selectedPokemonId: "0",
+    selectedPokemonId: "",
     selectedPokemon: {},
     pokedexInfo: {},
     evolutionChain: {},

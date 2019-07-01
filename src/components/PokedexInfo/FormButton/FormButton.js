@@ -21,7 +21,7 @@ const FormButton = props => {
     /*TODO: add check for totem pokemon
     TODO: add  UsUm models*/
     
-    return !props.children.includes("totem") ? <FormButton onClick={props.onClick}>{props.children}</FormButton> : null;
+    return !props.children.includes("totem") ? <FormButton onClick={() => props.onClick(props.name)}>{props.children}</FormButton> : null;
 }
 
 export default withTheme(FormButton)

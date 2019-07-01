@@ -36,12 +36,12 @@ const CurrentPokemon = React.memo((
         selectedPokemon={selectedPokemon}
         evoChain={evoChain}
         evolutionClick={(id) => history.push("/id="+id)}
-         /> : <Loading />
+         /> : <Loading /> 
 
     return (
         <Wrapper>
             <GBScreen>
-                { pokemon } 
+                { pokemon }
             </GBScreen>
         </Wrapper>
     )

@@ -7,10 +7,10 @@ function* startFetchAll(actions){
     try{
         yield put({type: actionTypes.LOADING_POKEMONS })
         const pokemons = yield call(() => axios
-        .get(`https://pokeapi.co/api/v2/pokemon/?limit=${generations[actions.selectedGen].end}&offset=${generations[actions.selectedGen].start}`)
-        .then(res => res.data)
-        .then(data => data.results)
-        .catch(err => alert(err))
+            .get(`https://pokeapi.co/api/v2/pokemon/?limit=${generations[actions.selectedGen].end}&offset=${generations[actions.selectedGen].start}`)
+            .then(res => res.data)
+            .then(data => data.results)
+            .catch(err => alert(err))
        );
        
         yield put({type: actionTypes.FETCH_PKMN_SUCCESS, pokemons: pokemons})
@@ -23,19 +23,23 @@ function* startFetchSelected(actions){
 
     try{
 
-        yield put({type: actionTypes.LOADING_CURRENT_PKMN })
+        yield put({ type: actionTypes.LOADING_CURRENT_PKMN })
 
         const selectedPokemon = yield call(
             ()=> axios.get('https://pokeapi.co/api/v2/pokemon/'+actions.id)
-            .then(res => res.data)
-            .then(data => data)
-            .catch(err => console.log(err)));
-
+                .then(res => res.data)
+                .then(data => data)
+                .catch(err => console.log(err))        
+        );
+        
+        
+        const species = actions.id.replace(/(-[a-z]{3,})?$/,"");
+        console.log(species)
         const pokedexInfo = yield call(
-            ()=> axios.get('https://pokeapi.co/api/v2/pokemon-species/'+actions.id)
-            .then(res => res.data)
-            .then(data => data)
-            .catch(err => console.log(err))); 
+            ()=> axios.get('https://pokeapi.co/api/v2/pokemon-species/'+species)
+                .then(res => res.data)
+                .then(data => data)
+                .catch(err => console.log(err))); 
 
         yield put({type: actionTypes.FETCH_EVO_CHAIN_START, evoChainURL: pokedexInfo.evolution_chain.url})
 
@@ -54,6 +58,7 @@ function* startFetchEvoChain(actions){
    try{ 
         const evoChain = yield call(
         () => axios.get(actions.evoChainURL))
+        
         yield put({
         type: actionTypes.FETCH_EVO_CHAIN_SUCCESS,
         evolutionChain: evoChain.data

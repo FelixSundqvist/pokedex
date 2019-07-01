@@ -12,8 +12,8 @@ const Card = ({name, id, onClick, selected}) => {
             cursor: pointer;
         }
         font-size: .5rem;
-        opacity: ${selected === id ? 1 : 0.5};
-        border: ${selected === id ? "2px solid red ": null};
+        opacity: ${selected === name ? 1 : 0.5};
+        border: ${selected === name ? "2px solid red ": null};
         &:hover{
             opacity: 0.8;
         }
@@ -30,7 +30,7 @@ const Card = ({name, id, onClick, selected}) => {
     `
 
     return (
-    <StyledCard onClick={() => onClick(id)} >
+    <StyledCard onClick={() => onClick(name)} >
         <Image/>
         <p>{name}</p>
     </StyledCard>)

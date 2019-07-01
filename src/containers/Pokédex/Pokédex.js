@@ -16,10 +16,11 @@ const Pokedex = React.memo(props => {
 
     pokemons.current = !props.isLoading
         ?   <CardList 
-                selected={props.selected}
+                selected={props.selectedPokemonId}
                 onClick={(id) => props.history.push("/id="+id)} 
                 items = {props.pokemons} /> 
         : null;
+   
     /* const scroll = e => console.log(e) */
     return (<Wrapper><GBScreen>{pokemons.current}</GBScreen></Wrapper>)
 })

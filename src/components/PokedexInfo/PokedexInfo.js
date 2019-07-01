@@ -12,7 +12,9 @@ import Abilities from './Abilities/Abilities';
 
 const DexEntry = React.lazy(() => import('./DexEntry/DexEntry'));
 
-const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, evoChain, evolutionClick}) => {
+const PokedexInfo = React.memo(props => {
+    
+    const {selectedPokemon, pokedexInfo, evoChain, evolutionClick} = props;
 
     const [imageLink, changeImageLink] 
         = useState(`http://felixsundqvist.org/pokemon/${selectedPokemon.name}.gif`)
@@ -40,6 +42,7 @@ const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, evoChain, evoluti
         stats: null,
         evolutionChain: null
     }
+    
     //DESCRIPTION
     const description = flavor_text_entries 
     ? flavor_text_entries.filter(cur => cur.language.name === "en")[0] : null;
@@ -63,7 +66,9 @@ const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, evoChain, evoluti
             { varieties.map(form => 
                 <FormButton 
                     key={form.pokemon.name}
-                    onClick={() => changeImageLink(linkURL+form.pokemon.name+".gif")}>
+                    onClick={evolutionClick}
+                    name={form.pokemon.name}
+                    >
                         {form.pokemon.name}
                 </FormButton>)}
         </div>
@@ -101,7 +106,7 @@ const PokedexInfo = React.memo(({selectedPokemon, pokedexInfo, evoChain, evoluti
     : null;
                 
     //stats, habitat
-    pokemonProperties.habitat = habitat ?<p key="habitat">{ habitat.name }</p> : null;
+    pokemonProperties.habitat = habitat ?<p key="habitat"> Habitat: { habitat.name }</p> : null;
     pokemonProperties.stats = stats ? <Stats key="stats" stats={stats} /> : null;
     
 
