@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from '../../CardList/Card/Card';
 import { getIDFromURL } from '../../../utility';
-
+import arrow from '../../../assets/arrow.svg';
 const EvolutionChain = props => {
     const { evoChain } = props;
     
@@ -17,30 +17,46 @@ const EvolutionChain = props => {
         align-items: center;
         color: black;
     `
-    const EvoMethod = styled.div`
-        color: white; 
-        padding: 8px;
-        font-size: .5rem;
+
+    const EvoItem = styled.span`
+        color: white;
+    `
+    const EvoMethodDiv = styled.div`
+        height: 100px;
+        width: 150px;
+        margin: 10px;
+        padding: 16px 0;
+        font-size: .2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    `
+    const ArrowIcon = styled.img`
+        display: block;
+        height: 20px;
+        margin: 16px auto;
+        width: 20%;
+
     `
     const checkEvoChain = evolution => evolution.evolves_to && evolution.evolves_to.length > 0
     
     const checkEvolution = (evolution, arr = []) => {
-        arr.push(evolution);
+        arr.push([evolution]);
+
         if(checkEvoChain(evolution)){
             if(evolution.evolves_to.length > 1){
-                /* arr.push(evolution.evolves_to) */
-                evolution.evolves_to.map(cur => checkEvolution(cur, arr))
+                arr.push(evolution.evolves_to) 
             }else{
                 evolution.evolves_to.map(cur => checkEvolution(cur, arr))
             }
         }
-        console.log(arr)
         return arr
     }
 
     const createEvoItems = (key, evolutionMethod, id) => {
         return key[evolutionMethod] 
-        ? <div key={ evolutionMethod + id }>
+        ? <EvoItem key={ evolutionMethod + id }>
                 <p>{evolutionMethod.replace(/_/g, ' ')}: 
                     {key[evolutionMethod].name ? key[evolutionMethod].name : key[evolutionMethod]} 
                 </p> 
@@ -51,7 +67,7 @@ const EvolutionChain = props => {
                         alt={key[evolutionMethod].name} /> 
                     : null
                 }
-            </div>
+            </EvoItem>
         : null
     }
 
@@ -75,22 +91,34 @@ const EvolutionChain = props => {
             .filter(current => filterEvolutionMethod(current)))
         .reduce((a, b) => a.concat(b), []) // flatten
     };
-    const evolutionBranch = checkEvolution(evoChain.chain).map((cur, id) => 
-        <React.Fragment key={cur.species.name}>
-            {
-                id > 0  
-                    ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> 
-                    : null
-            }
-            <Card
-                onClick={props.onClick}
-                id={getIDFromURL(cur.species.url)}
-                name={cur.species.name}
-                
-            />              
-        </React.Fragment>
-    )
+    
+    const createEvolutionElements = (cur, id) => 
+    <React.Fragment key={cur.species.name}>
 
+        <Card
+            onClick={props.onClick}
+            id={getIDFromURL(cur.species.url)}
+            name={cur.species.name}
+            
+        />              
+    </React.Fragment>
+
+    const createEvolutionMethodEl = (cur, id) => 
+    <EvoMethodDiv key={cur + id}>
+        {
+            <>
+                
+                <div style={{flex: "1"}}>{evolutionMethod(cur)}</div>
+                <ArrowIcon src={arrow} alt="arrow" />
+            </>
+        }
+    </EvoMethodDiv>
+
+    const evolutionBranch = checkEvolution(evoChain.chain).map((currentBranch, id) => 
+        <>
+            {id > 0 ? <div>{currentBranch.map(createEvolutionMethodEl)}</div> : null}
+            <div>{currentBranch.map(createEvolutionElements)}</div>
+        </>)
     return (
     <div>
         <h4>Evolution Chain</h4>

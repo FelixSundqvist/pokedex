@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const Card = ({name, id, onClick, selected}) => {
+const Card = ({name, id, onClick, selected, children}) => {
     const StyledCard = styled.div`
         height: 100px;
         width: 100px;
@@ -33,6 +33,7 @@ const Card = ({name, id, onClick, selected}) => {
     <StyledCard onClick={() => onClick(name)} >
         <Image/>
         <p>{name}</p>
+        <p>{children}</p>
     </StyledCard>)
 }
 export default Card;

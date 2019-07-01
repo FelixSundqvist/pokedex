@@ -31,10 +31,9 @@ function* startFetchSelected(actions){
                 .then(data => data)
                 .catch(err => console.log(err))        
         );
-        
-        
+                
         const species = actions.id.replace(/(-[a-z]{3,})?$/,"");
-        console.log(species)
+
         const pokedexInfo = yield call(
             ()=> axios.get('https://pokeapi.co/api/v2/pokemon-species/'+species)
                 .then(res => res.data)
