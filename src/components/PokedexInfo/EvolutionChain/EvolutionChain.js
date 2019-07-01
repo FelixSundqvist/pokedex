@@ -5,9 +5,11 @@ import { getIDFromURL } from '../../../utility';
 
 const EvolutionChain = props => {
     const { evoChain } = props;
+    
     if(!evoChain.chain) {
         return null
     }
+
     const EvolutionWrapper = styled.div`
         display: flex;
         flex-wrap: wrap;
@@ -17,7 +19,6 @@ const EvolutionChain = props => {
     `
     const EvoMethod = styled.div`
         color: white; 
-        border: 2px solid yellow;
         padding: 8px;
         font-size: .5rem;
     `
@@ -25,59 +26,69 @@ const EvolutionChain = props => {
     
     const checkEvolution = (evolution, arr = []) => {
         arr.push(evolution);
-        if(checkEvoChain(evolution))evolution.evolves_to.map(cur => checkEvolution(cur, arr))
+        if(checkEvoChain(evolution)){
+            if(evolution.evolves_to.length > 1){
+                /* arr.push(evolution.evolves_to) */
+                evolution.evolves_to.map(cur => checkEvolution(cur, arr))
+            }else{
+                evolution.evolves_to.map(cur => checkEvolution(cur, arr))
+            }
+        }
+        console.log(arr)
         return arr
     }
 
+    const createEvoItems = (key, evolutionMethod, id) => {
+        return key[evolutionMethod] 
+        ? <div key={ evolutionMethod + id }>
+                <p>{evolutionMethod.replace(/_/g, ' ')}: 
+                    {key[evolutionMethod].name ? key[evolutionMethod].name : key[evolutionMethod]} 
+                </p> 
+                {
+                    key[evolutionMethod] && key[evolutionMethod].name && evolutionMethod.includes("item") 
+                    ? <img 
+                        src={`http://felixsundqvist.org/pokemon/evo-item/${key[evolutionMethod].name}.png`} 
+                        alt={key[evolutionMethod].name} /> 
+                    : null
+                }
+            </div>
+        : null
+    }
+
+    const filterEvolutionMethod = (evolutionMethod) => {
+        if(evolutionMethod === null){
+            return false
+        }else if(evolutionMethod && evolutionMethod.key.includes("trigger")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     const evolutionMethod = ({evolution_details}) => {
         if(evolution_details.length === 0 ){
             return
         }
 
         return evolution_details.map((cur, id) => Object.keys(cur)
-            .map(currentMethod => {
-                return cur[currentMethod] 
-                ? <div key={currentMethod+id}>
-                        <p>{currentMethod.replace(/_/g, ' ')}: 
-                            {cur[currentMethod].name ? cur[currentMethod].name : cur[currentMethod]} 
-                        </p> 
-                        {
-                            cur[currentMethod] && cur[currentMethod].name && currentMethod.includes("item") 
-                            ? <img 
-                                src={`http://felixsundqvist.org/pokemon/evo-item/${cur[currentMethod].name}.png`} 
-                                alt={cur[currentMethod].name} /> 
-                            : null
-                        }
-                    </div>
-                : null})
-            .filter(current => {
-
-                if(current === null){
-                    return false
-                }else if(current && current.key.includes("trigger")){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }))
+            .map(currentMethod => createEvoItems(cur, currentMethod, id))
+            .filter(current => filterEvolutionMethod(current)))
         .reduce((a, b) => a.concat(b), []) // flatten
     };
     const evolutionBranch = checkEvolution(evoChain.chain).map((cur, id) => 
-            <React.Fragment key={cur.species.name} >
-                {
-                    id > 0  
-                        ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> 
-                        : null
-                }
+        <React.Fragment key={cur.species.name}>
+            {
+                id > 0  
+                    ? <EvoMethod>{evolutionMethod(cur)}</EvoMethod> 
+                    : null
+            }
             <Card
                 onClick={props.onClick}
                 id={getIDFromURL(cur.species.url)}
                 name={cur.species.name}
                 
-            />
-                          
-            </React.Fragment>
+            />              
+        </React.Fragment>
     )
 
     return (
