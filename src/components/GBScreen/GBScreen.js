@@ -1,21 +1,20 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components';
+import GenButtons from '../GenButtons/GenButtons';
 
 const GBScreen = props => {
     const { theme } = props;
 
     const ScreenFrame = styled.div`
-        max-height: 800px;
-        max-width: 800px;
         height: 100%;
         width: 100%;
         overflow: scroll;
-        margin: 16px auto;
+        margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        margin: 16px;
+        
         @media (max-width: 768px){
             margin: 0;
         }
@@ -23,6 +22,7 @@ const GBScreen = props => {
     const ScreenInner = styled.div`
         min-height: 100%;
         min-width: 100%;
+        padding: 16px;
         background-color: ${theme.palette.black};
         display: flex;
         flex-wrap: wrap;
@@ -31,7 +31,7 @@ const GBScreen = props => {
     
     `
     return ( 
-        <ScreenFrame onWheel={props.onWheel}>
+        <ScreenFrame >
             <ScreenInner>
                     {props.children}
             </ScreenInner>

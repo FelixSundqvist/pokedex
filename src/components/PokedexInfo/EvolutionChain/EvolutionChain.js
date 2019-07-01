@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from '../../CardList/Card/Card';
-import { getIDFromURL } from '../../../utility';
-import arrow from '../../../assets/arrow.svg';
+
 const EvolutionChain = props => {
     const { evoChain } = props;
     
@@ -12,33 +10,40 @@ const EvolutionChain = props => {
 
     const EvolutionWrapper = styled.div`
         display: flex;
+        overflow: hidden;
         flex-wrap: wrap;
-        justify-content: center;
         align-items: center;
-        color: black;
+        justify-content: space-evenly;
+        color: white;
     `
 
     const EvoItem = styled.span`
-        color: white;
+        overflow: hidden;
     `
-    const EvoMethodDiv = styled.div`
+    const EvoMethodDiv = styled.div`   
+        padding: 8px;
+        margin: 8px;
+        min-width: 100px;
         height: 100px;
-        width: 150px;
-        margin: 10px;
-        padding: 16px 0;
-        font-size: .2rem;
+        word-wrap: break-word;
+        font-size: .4vw;
+        border: .1vw solid white;
+        overflow: auto;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
+        @media screen and (max-width: 768px){    
+            height: 80px;
+            font-size: 1vw;
+        }
     `
-    const ArrowIcon = styled.img`
+    const ItemImage = styled.img`
         display: block;
-        height: 20px;
-        margin: 16px auto;
-        width: 20%;
-
+        margin: 8px auto;
+        height: 40%;
     `
+
     const checkEvoChain = evolution => evolution.evolves_to && evolution.evolves_to.length > 0
     
     const checkEvolution = (evolution, arr = []) => {
@@ -55,14 +60,16 @@ const EvolutionChain = props => {
     }
 
     const createEvoItems = (key, evolutionMethod, id) => {
+        
         return key[evolutionMethod] 
-        ? <EvoItem key={ evolutionMethod + id }>
-                <p>{evolutionMethod.replace(/_/g, ' ')}: 
+        ? <EvoItem key={ evolutionMethod + id } method={key[evolutionMethod].name}>
+                <div>{evolutionMethod.replace(/_/g, ' ')}: 
                     {key[evolutionMethod].name ? key[evolutionMethod].name : key[evolutionMethod]} 
-                </p> 
+                </div>
                 {
+                   
                     key[evolutionMethod] && key[evolutionMethod].name && evolutionMethod.includes("item") 
-                    ? <img 
+                    ? <ItemImage 
                         src={`http://felixsundqvist.org/pokemon/evo-item/${key[evolutionMethod].name}.png`} 
                         alt={key[evolutionMethod].name} /> 
                     : null
@@ -72,9 +79,10 @@ const EvolutionChain = props => {
     }
 
     const filterEvolutionMethod = (evolutionMethod) => {
+        
         if(evolutionMethod === null){
             return false
-        }else if(evolutionMethod && evolutionMethod.key.includes("trigger")){
+        }else if(evolutionMethod && evolutionMethod.key.includes("trigger") && evolutionMethod.props.method === "level-up"){
             return false;
         }
         else{
@@ -93,32 +101,29 @@ const EvolutionChain = props => {
     };
     
     const createEvolutionElements = (cur, id) => 
-    <React.Fragment key={cur.species.name}>
+        <EvoMethodDiv key={cur.species.name} >
+            <ItemImage 
+                        src={`http://felixsundqvist.org/pokemon/icons/regular/${cur.species.name}.png`} 
+                        alt={cur.species.name} /> 
+            {cur.species.name}</EvoMethodDiv>
 
-        <Card
-            onClick={props.onClick}
+
+/*           <Card key={cur.species.name}  onClick={props.onClick}
             id={getIDFromURL(cur.species.url)}
-            name={cur.species.name}
-            
-        />              
-    </React.Fragment>
-
+            name={cur.species.name} /> */
     const createEvolutionMethodEl = (cur, id) => 
     <EvoMethodDiv key={cur + id}>
         {
-            <>
-                
-                <div style={{flex: "1"}}>{evolutionMethod(cur)}</div>
-                <ArrowIcon src={arrow} alt="arrow" />
-            </>
+            evolutionMethod(cur)
         }
     </EvoMethodDiv>
 
     const evolutionBranch = checkEvolution(evoChain.chain).map((currentBranch, id) => 
-        <>
+        <React.Fragment key={"branch"+ id}>
             {id > 0 ? <div>{currentBranch.map(createEvolutionMethodEl)}</div> : null}
             <div>{currentBranch.map(createEvolutionElements)}</div>
-        </>)
+        </React.Fragment>)
+
     return (
     <div>
         <h4>Evolution Chain</h4>

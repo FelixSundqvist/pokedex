@@ -1,21 +1,31 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components';
+import GBScreen from '../GBScreen/GBScreen';
+import GenButtons from '../GenButtons/GenButtons';
 
-const Wrapper = ({ theme, children }) => {
+const Wrapper = ({ theme, children, genButtons }) => {
     const StyledWrapper = styled.div`
     position: relative;
-    min-height: 80vh;
-    flex: 1;
-    margin: 8px;
+    width: 90vw;
+    height: 40vw;
+    margin: 0 auto;
+    padding: 16px;
     background-color: ${theme.palette.primaryDark};
     border: .3vw solid ${theme.palette.black};
     box-shadow: 5px 10px 10px ${theme.palette.black};
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;`
-
-    return <StyledWrapper>{children}</StyledWrapper>
+    align-items: center;
+    flex-direction: column;
+    `
+    
+    return( 
+    <StyledWrapper>
+        {genButtons ? <GenButtons /> : null}
+        <GBScreen>
+            {children}
+        </GBScreen> 
+    </StyledWrapper>)
 }
 
 export default withTheme(Wrapper)

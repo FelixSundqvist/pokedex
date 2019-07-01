@@ -21,13 +21,14 @@ const PokedexInfo = React.memo(props => {
     
     const { flavor_text_entries, varieties, habitat } = pokedexInfo;
     const { moves, height, weight, abilities, stats } = selectedPokemon;
-    const linkURL = "http://felixsundqvist.org/pokemon/";
+
 
     const StyledInfo = styled.div`
         min-height: 100%;
         width: 100%;
         color: white;
         text-transform: capitalize;
+
     `
 
     const pokemonProperties = {
@@ -109,7 +110,6 @@ const PokedexInfo = React.memo(props => {
     pokemonProperties.habitat = habitat ? <p key="habitat"> Habitat: { habitat.name }</p> : null;
     pokemonProperties.stats = stats ? <Stats key="stats" stats={stats} /> : null;
     
-
     const allPkmnProperties = Object.keys(pokemonProperties).map(cur => pokemonProperties[cur]);
 
     //3d gif

@@ -1,8 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { withTheme } from 'styled-components';
 import { connect } from 'react-redux';
-/* import GBController from '../../components/Body/GBController/GBController'; */
-import GBScreen from '../../components/GBScreen/GBScreen';
 import PokedexInfo from '../../components/PokedexInfo/PokedexInfo';
 import Loading from '../../components/UI/Loading/Loading';
 
@@ -40,9 +38,7 @@ const CurrentPokemon = React.memo((
 
     return (
         <Wrapper>
-            <GBScreen>
-                { pokemon }
-            </GBScreen>
+            {pokemon}
         </Wrapper>
     )
 });

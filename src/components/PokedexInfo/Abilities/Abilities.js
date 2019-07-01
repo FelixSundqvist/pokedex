@@ -14,6 +14,7 @@ const Abilities = ({ abilities, theme }) => {
         padding: 16px;
         background-color: ${theme.palette.secondary};
         margin: 8px;
+       
     `
     
     const allAbilities = (

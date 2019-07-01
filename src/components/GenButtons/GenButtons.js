@@ -5,16 +5,14 @@ import PokedexScanner from '../UI/PokedexScanner/PokedexScanner';
 import ChangeGenButtons from '../UI/ChangeGenButtons/ChangeGenButtons';
 import * as actionTypes from '../../store/actions/actionTypes';
 
-const Header = props => {
-    const { theme } = props;
-    const StyledHeader = styled.header`
+const GenButtons = props => {
+    const StyledGens = styled.header`
     margin: 0;
     width: 100%;
-    background-color: ${theme.palette.black};
     font-family: sans-serif;
     color: white;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.1);
-    position: relative;
+    /* box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.1); */
+    position:relative;
     h1{
         line-height: 10vh;
         margin: 0;
@@ -24,15 +22,14 @@ const Header = props => {
 
 
     return (
-        <StyledHeader>
-            <h1>Pokedex</h1>
+        <StyledGens>
             <div>
                 <h3>Generation: </h3>
                 <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
             </div>
             <PokedexScanner />
             
-        </StyledHeader>)
+        </StyledGens>)
 }
 
 const mapStateToProps = state => ({
@@ -42,4 +39,4 @@ const mapDispatchToProps = (dispatch) => ({
     genClick: (gen) => dispatch({ type: actionTypes.CHANGE_GEN, selectedGen: gen }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(GenButtons));

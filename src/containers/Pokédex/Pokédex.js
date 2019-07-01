@@ -2,9 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import Loading from '../../components/UI/Loading/Loading';
 import CardList from '../../components/CardList/CardList';
-import GBScreen from '../../components/GBScreen/GBScreen';
+import GenButtons from '../../components/GenButtons/GenButtons';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;
@@ -22,7 +21,9 @@ const Pokedex = React.memo(props => {
         : null;
    
     /* const scroll = e => console.log(e) */
-    return (<Wrapper><GBScreen>{pokemons.current}</GBScreen></Wrapper>)
+    return (<Wrapper genButtons>
+                {pokemons.current}
+            </Wrapper>)
 })
 const mapStateToProps = (state) => ({
     pokemons: state.pokemons,

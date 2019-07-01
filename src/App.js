@@ -2,7 +2,6 @@ import React, { Suspense, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { withTheme } from 'styled-components';
 import './App.css';
-import Header from './components/Header/Header';
 import Pokedex from './containers/Pokédex/Pokédex';
 import Loading from './components/UI/Loading/Loading';
 const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/CurrentPokemon'));
@@ -10,20 +9,16 @@ const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/Curr
 function App(props) {
 
   return (
-    <div className="App" style={{backgroundColor: props.theme.palette.primary}}>
-      <Header />
+    <div className="App" style={{backgroundImage: `linear-gradient(${props.theme.palette.primary}, ${props.theme.palette.primaryDark})`}}>
       <div style={
-        { 
+        { padding: "16px",
           width: "100%", 
-          display: "flex", 
-          flexWrap: "wrap",
-          overflow: "hidden"
+          minHeight: "100vh"
           }}>
-        <Route path="/" component={Pokedex} />
         <Suspense fallback={<Loading />}>
           <Route path="/id=:id" component={CurrentPokemon} />
         </Suspense>
-        
+        <Route path="/" component={Pokedex} />
       </div>
     </div> 
   );
