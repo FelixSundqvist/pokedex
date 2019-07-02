@@ -1,0 +1,27 @@
+  /*   
+ref={ref} onLoad = {onLoad} onScroll={onScroll}
+    const innerScreen = useRef(null)
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [factor, setFactor] = useState(1)
+
+    useEffect(() => innerScreen.current.scrollTo(0, scrollPosition), [scrollPosition])
+
+    const test = () => innerScreen.current.focus
+    const s = () => {
+        
+        setScrollPosition(innerScreen.current.scrollTop )
+        setFactor(factor + 1)
+    }
+    const testScroll = e =>{
+        e.preventDefault();
+     
+        const screenHeight = innerScreen.current.clientHeight;
+
+        if(innerScreen.current.scrollTop / screenHeight > factor){
+            
+            s(e);
+
+        }
+     onScroll={testScroll} ref={ innerScreen } onLoad={ test } 
+        //TODO scroll top compare
+    } */

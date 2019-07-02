@@ -4,8 +4,7 @@ import styled, { withTheme } from 'styled-components';
 import GenButtons from '../GenButtons/GenButtons';
 import PokedexScanner from '../UI/PokedexScanner/PokedexScanner';
 
-const Wrapper = React.forwardRef((props, ref) => {
-    const { theme, children, genButtons, scanner, onLoad, onScroll } = props
+const Wrapper = ({ theme, children, genButtons, scanner }) => {
     const StyledWrapper = styled.div`
         position: relative;
         width: 50vw;
@@ -50,17 +49,19 @@ const Wrapper = React.forwardRef((props, ref) => {
     `
     
     return( 
-    <StyledWrapper >
-        {genButtons ? <GenButtons /> : null}
-        {scanner ? <PokedexScanner />: null}
+    <StyledWrapper>
+        <ScreenFrame>
 
-        <ScreenFrame ref={ref} onLoad = {onLoad} onScroll={onScroll}>
             <ScreenInner>
                 {children}
             </ScreenInner>
+
         </ScreenFrame>
 
+        {genButtons ? <GenButtons /> : null}
+        {scanner ? <PokedexScanner />: null}
+        
     </StyledWrapper>)
-})
+}
 
 export default withTheme(Wrapper)

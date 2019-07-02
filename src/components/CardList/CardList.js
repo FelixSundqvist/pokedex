@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import Card from './Card/Card';
 import { getIDFromURL } from '../../utility';
 
-const CardList = ({ items, onClick, selected }) => {
+const CardList = (({ items, onClick, selected } ) => {
+
     const cards = useMemo(() =>         
     <>
         {
@@ -14,8 +15,8 @@ const CardList = ({ items, onClick, selected }) => {
                     name={current.name}/>)
         }
     </>, 
-    [items, onClick, selected])
+    [items, onClick, selected ])
 
     return cards
-}
+})
 export default CardList;

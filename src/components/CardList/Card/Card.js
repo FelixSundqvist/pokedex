@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const Card = ({name, id, onClick, selected, children}) => {
+const Card = (props, ref) => {
+
+    const {name, id, onClick, selected, children} = props;
+
     const StyledCard = styled.div`
         height: 100px;
         width: 100px;
@@ -27,7 +30,6 @@ const Card = ({name, id, onClick, selected, children}) => {
         @media screen and (max-width: 768px){
             width: 80px;
             height: 80px;
-            
             margin: 4px;
         }
     `
@@ -42,7 +44,8 @@ const Card = ({name, id, onClick, selected, children}) => {
     `
 
     return (
-    <StyledCard onClick={() => onClick(name)} >
+    <StyledCard 
+        onClick={(event) => onClick(event, name)}>
         <Image/>
         <p>{name}</p>
         <p>{children}</p>

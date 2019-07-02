@@ -13,7 +13,7 @@ function App(props) {
     width: 100%;
     min-height: 100vh;
     display: flex;
-
+    background-color: black;
     @media screen and (max-width: 768px){
       padding: 0;
       flex-direction: column;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
@@ -6,39 +6,23 @@ import CardList from '../../components/CardList/CardList';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;
-    const pokemons = useRef(null);
-    const innerScreen = useRef(null)
 
-    pokemons.current = !props.isLoading 
     useEffect(() => {
         fetchAllPokemons(selectedGen)
     }, [selectedGen, fetchAllPokemons])
 
-/*     useEffect(() => {
-        const reference = innerScreen.current
-        const scroll =  e => console.log(e)
-       console.log(innerScreen)
-        reference.addEventListener("onclick", scroll)
-        return () => {
-            reference.removeEventListener("onclick", scroll)
-        }
-    }, []) */
-
-    const test = () => innerScreen.current.focus
-    const testScroll = e =>{
-        console.log(innerScreen)
-        console.log(e)
-        //TODO scroll top compare
+    const changePage = (event, id) =>{
+        props.history.push("/id="+id)
     }
-    pokemons.current = !props.isLoading
+
+    const pokemons = !props.isLoading
         ?   <CardList 
                 selected={props.selectedPokemonId}
-                onClick={(id) => props.history.push("/id="+id)} 
+                onClick={changePage} 
                 items = {props.pokemons} /> 
         : null;
    
-  
-    return (<Wrapper onScroll={testScroll} genButtons ref={ innerScreen } onLoad={ test }>{pokemons.current}</Wrapper>)
+    return (<Wrapper genButtons>{ pokemons }</Wrapper>)
 })
 const mapStateToProps = (state) => ({
     pokemons: state.pokemons,

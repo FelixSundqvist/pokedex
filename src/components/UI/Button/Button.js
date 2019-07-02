@@ -10,9 +10,10 @@ const Button = props => {
     background-color: ${props.selected ? "#0f11cc" : props.theme.palette.secondary};
     border: 2px solid blue;
     cursor: pointer;
-    font-size: .5;
+    font-size: 1vw;
     @media screen and (max-width: 768px){
-        margin: 4px;
+        margin: 2px;
+        padding: 4px;
     }
     &:hover{
         background-color: white;
