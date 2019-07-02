@@ -1,5 +1,5 @@
 import React from 'react';
-import Title from '../Titles/Title';
+import Title from '../Title/Title';
 const Evolutions = React.lazy(() =>  import('./Evolutions'));
 
 const EvolutionChain = props => {
@@ -13,7 +13,7 @@ const EvolutionChain = props => {
 
     return (
     <div>
-        <Title onClick={onClick}>Evolution Chain</Title>
+        <Title onClick={onClick} show={show}>Evolution Chain</Title>
         { evolutions }
     </div>
     )

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import Title from '../Titles/Title';
+import Title from '../Title/Title';
 const MoveListItems = React.lazy(() => import('./MoveListItems')); 
 
 const Moves = ({ moves, onClick, show }) => {
@@ -26,7 +26,7 @@ const Moves = ({ moves, onClick, show }) => {
     let MoveList= show ? <MoveListUL><MoveListItems moves={moves}/></MoveListUL> : null;
 
     return(<MoveListWrapper>
-        <Title onClick={onClick}>Moves</Title>
+        <Title onClick={onClick} show={show}>Moves</Title>
         { MoveList }
     </MoveListWrapper>)
 }

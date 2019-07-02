@@ -36,7 +36,6 @@ const PokedexInfo = React.memo(props => {
         types: null,
         size: null,
         habitat: null,
-        formes: null,
         abilities: null,
         description: null,
         stats: null,
@@ -59,21 +58,8 @@ const PokedexInfo = React.memo(props => {
     pokemonProperties.pokemonGenus = pokemonGenera 
     ? <h3 key="genus">{checkLetter(pokemonGenera.genus)}</h3> 
     : null;
-    // FORMES
-    pokemonProperties.formes = varieties && varieties.length > 1 
-    ? 
-        <div key="forms"> 
-            <h3>Formes</h3>
-            { varieties.map(form => 
-                <FormButton 
-                    key={form.pokemon.name}
-                    onClick={evolutionClick}
-                    name={form.pokemon.name}
-                    >
-                        {form.pokemon.name}
-                </FormButton>)}
-        </div>
-    :  null 
+    /* // FORMES
+    pokemonProperties.formes =  */
    
     //ABILITIES
     pokemonProperties.abilities = abilities 
@@ -84,7 +70,7 @@ const PokedexInfo = React.memo(props => {
     pokemonProperties.description = description 
     ?   
         <React.Fragment key="description">
-            <h5>Dex Entry</h5>
+            <h3>Dex Entry</h3>
             <DexEntry>
                 <p>{description.flavor_text}</p>
             </DexEntry>
@@ -132,7 +118,7 @@ const PokedexInfo = React.memo(props => {
 
     //3d gif
     const infoImage =  imageLink !== "http://felixsundqvist.org/pokemon/undefined.gif" 
-        ? <InfoImage imageLink={imageLink} /> 
+        ? <InfoImage imageLink={imageLink} varieties={varieties} evolutionClick={evolutionClick} /> 
         : null;
     
     
