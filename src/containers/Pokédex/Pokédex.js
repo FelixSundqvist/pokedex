@@ -7,11 +7,29 @@ import CardList from '../../components/CardList/CardList';
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;
     const pokemons = useRef(null);
+    const innerScreen = useRef(null)
+
     pokemons.current = !props.isLoading 
     useEffect(() => {
         fetchAllPokemons(selectedGen)
     }, [selectedGen, fetchAllPokemons])
 
+/*     useEffect(() => {
+        const reference = innerScreen.current
+        const scroll =  e => console.log(e)
+       console.log(innerScreen)
+        reference.addEventListener("onclick", scroll)
+        return () => {
+            reference.removeEventListener("onclick", scroll)
+        }
+    }, []) */
+
+    const test = () => innerScreen.current.focus
+    const testScroll = e =>{
+        console.log(innerScreen)
+        console.log(e)
+        //TODO scroll top compare
+    }
     pokemons.current = !props.isLoading
         ?   <CardList 
                 selected={props.selectedPokemonId}
@@ -19,10 +37,8 @@ const Pokedex = React.memo(props => {
                 items = {props.pokemons} /> 
         : null;
    
-    /* const scroll = e => console.log(e) */
-    return (<Wrapper genButtons>
-                {pokemons.current}
-            </Wrapper>)
+  
+    return (<Wrapper onScroll={testScroll} genButtons ref={ innerScreen } onLoad={ test }>{pokemons.current}</Wrapper>)
 })
 const mapStateToProps = (state) => ({
     pokemons: state.pokemons,
