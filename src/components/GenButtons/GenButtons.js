@@ -13,9 +13,9 @@ const GenButtons = props => {
     /* box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.1); */
     position:relative;
     p{
-        margin: 0;
+        margin-top: 16px;
         padding: 0;
-        
+        font-size: 1vw;
     }
     @media screen and (max-width: 768px){
         h4{

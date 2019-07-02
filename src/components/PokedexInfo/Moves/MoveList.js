@@ -1,6 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const MoveListItems = ({moves}) => {
+const MoveListItems = ({moves, show}) => {
+    
+    const MoveListUL = styled.ul`
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    border: 2px solid white;
+    display: ${show ? "block" : "none"};
+    li {
+        padding: 16px;
+    }
+
+    li:nth-child(even) {
+        background-color: white;
+        color: black;
+    }
+    `
 
     let learnedByLevel = moves.filter(cur => {
         return cur.version_group_details[0].level_learned_at !== 0}
@@ -32,7 +49,7 @@ const MoveListItems = ({moves}) => {
         </li>)
     }
 
-    return(<>{learnedByLevel.map(createListItem)}{learnedByOther.map(createListItem)}</>)
+    return(<MoveListUL>{learnedByLevel.map(createListItem)}{learnedByOther.map(createListItem)}</MoveListUL>)
 }
 
 export default MoveListItems;

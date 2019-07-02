@@ -19,10 +19,12 @@ const InfoImage = props => {
         display: flex;
         flex-direction: column;
         border: 2px solid white;
+        color: white;
     `
 
     const formes = props.varieties && props.varieties.length > 1 
-    ?   (<Buttons>{
+    ?   (<Buttons>
+        {
         props.varieties.map(form => 
             <FormButton 
                 key={form.pokemon.name}

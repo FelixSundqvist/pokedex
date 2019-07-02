@@ -10,7 +10,6 @@ function* startFetchAll(actions){
             .get(`https://pokeapi.co/api/v2/pokemon/?limit=${generations[actions.selectedGen].end}&offset=${generations[actions.selectedGen].start}`)
             .then(res => res.data)
             .then(data => data.results)
-            .catch(err => alert(err))
        );
        
         yield put({type: actionTypes.FETCH_PKMN_SUCCESS, pokemons: pokemons})
@@ -28,8 +27,7 @@ function* startFetchSelected(actions){
         const selectedPokemon = yield call(
             ()=> axios.get('https://pokeapi.co/api/v2/pokemon/'+actions.id)
                 .then(res => res.data)
-                .then(data => data)
-                .catch(err => console.log(err))        
+                .then(data => data)    
         );
                 
         const species = actions.id.replace(/(-[a-z]{3,})?(-x|-y)?$/,"");
@@ -37,9 +35,8 @@ function* startFetchSelected(actions){
         const pokedexInfo = yield call(
             ()=> axios.get('https://pokeapi.co/api/v2/pokemon-species/'+species)
                 .then(res => res.data)
-                .then(data => data)
-                .catch(err => console.log(err))); 
-
+                .then(data => data)); 
+        
         yield put({type: actionTypes.FETCH_EVO_CHAIN_START, evoChainURL: pokedexInfo.evolution_chain.url})
 
         yield put({

@@ -25,10 +25,11 @@ const Wrapper = ({ theme, children, genButtons, scanner }) => {
     `
     
     const ScreenFrame = styled.div`
-        height: 100%;
-        width: 100%;
+        outline: 2vw solid ${theme.palette.white};
+        height: 90%;
+        width: 90%;
         overflow: scroll;
-        margin: 0 auto;
+        margin: 2vh auto;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -60,7 +61,7 @@ const Wrapper = ({ theme, children, genButtons, scanner }) => {
 
         {genButtons ? <GenButtons /> : null}
         {scanner ? <PokedexScanner />: null}
-        
+
     </StyledWrapper>)
 }
 

@@ -16,7 +16,7 @@ function App(props) {
     background-color: black;
     @media screen and (max-width: 768px){
       padding: 0;
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
   `
     
@@ -24,11 +24,11 @@ function App(props) {
     <div className="App">
       <Menu />
       <StyledApp>
-      
+        <Route path="/" component={Pokedex} />
         <Suspense fallback={<Loading />}>
           <Route path="/id=:id" component={CurrentPokemon} />
         </Suspense>
-        <Route path="/" component={Pokedex} />
+        
       </StyledApp>
     </div> 
   );

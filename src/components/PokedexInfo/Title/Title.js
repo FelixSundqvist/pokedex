@@ -44,7 +44,7 @@ const Title = props => {
     return (
         <StyledTitle onClick={props.onClick}>
             {props.children}
-            {props.show ? <ArrowIcon /> : <MinusIcon />}
+            {!props.show ? <ArrowIcon /> : <MinusIcon />}
         </StyledTitle>)
 }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import CardList from '../../components/CardList/CardList';
+import ErrorHandler from '../../components/UI/ErrorHandler/ErrorHandler';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;
@@ -15,12 +16,12 @@ const Pokedex = React.memo(props => {
         props.history.push("/id="+id)
     }
 
-    const pokemons = !props.isLoading
+    const pokemons = !props.isLoading && !props.fetchPokemonError
         ?   <CardList 
                 selected={props.selectedPokemonId}
                 onClick={changePage} 
                 items = {props.pokemons} /> 
-        : null;
+        : <ErrorHandler error2 />;
    
     return (<Wrapper genButtons>{ pokemons }</Wrapper>)
 })
@@ -28,7 +29,8 @@ const mapStateToProps = (state) => ({
     pokemons: state.pokemons,
     selectedGen: state.selectedGen,
     selectedPokemonId: state.selectedPokemonId,
-    isLoadingCurrent: state.isLoadingCurrent
+    isLoadingCurrent: state.isLoadingCurrent,
+    fetchPokemonError: state.fetchPokemonError
 })
 
 const mapDispatchToProps = (dispatch) => ({

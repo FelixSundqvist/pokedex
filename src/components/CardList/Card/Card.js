@@ -1,22 +1,22 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const Card = (props, ref) => {
+const Card = ({name, id, onClick, selected, children}) => {
 
-    const {name, id, onClick, selected, children} = props;
 
     const StyledCard = styled.div`
         height: 100px;
         width: 100px;
-        background-color: white;
+        color: white;
         margin: 10px;
         text-transform: capitalize;
         &:hover{
             cursor: pointer;
         }
         font-size: .5rem;
+        background-color: ${selected === name ? "rgba(255, 255, 255, 0.3)": null};
         opacity: ${selected === name ? 1 : 0.5};
-        border: ${selected === name ? "2px solid red ": null};
+        border: ${selected === name ? "2px solid white ": null};
         &:hover{
             opacity: 0.8;
         }
