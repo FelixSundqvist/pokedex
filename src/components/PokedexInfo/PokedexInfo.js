@@ -21,6 +21,7 @@ const PokedexInfo = React.memo(props => {
         const { flavor_text_entries, varieties, habitat, base_happiness, capture_rate, egg_groups } = pokedexInfo;
         const { moves, height, weight, abilities, stats } = selectedPokemon;
     
+        
         const imageLink = `http://felixsundqvist.org/pokemon/${selectedPokemon.name}.gif`
 
         const StyledInfo = styled.div`
@@ -121,7 +122,7 @@ const PokedexInfo = React.memo(props => {
                 <h2>{selectedPokemon.name}</h2>
                 {allPkmnProperties}
                 
-                <Button onClick={() => addToTeam({...selectedPokemon,...pokedexInfo})}>Add To Team</Button>
+                <Button onClick={() => addToTeam({...selectedPokemon,...pokedexInfo, name: selectedPokemon.name})}>Add To Team</Button>
             </StyledInfo>
         )
     }

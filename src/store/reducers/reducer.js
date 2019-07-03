@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     pokemons:[],
-    pokemonTeam:[],
+    pokemonTeam:[
+        
+    ],
 
     selectedGen: 0,
     selectedPokemonId: "",
@@ -42,12 +44,15 @@ const fetchCurrentPkmnFail = (state, action) => newState(state, {
 })
 
 const addToTeam = (state, addPokemon) => {
-    
     if(state.pokemonTeam.length <= 6){
         return newState(state, {pokemonTeam: [...state.pokemonTeam, addPokemon]})
     }else {
         return state
     }
+}
+
+const removeFromTeam = (state, pokemon) => {
+    return state
 }
 
 const reducer = (state = initialState, action) => {
@@ -72,6 +77,8 @@ const reducer = (state = initialState, action) => {
             return updateState({evolutionChain: action.evolutionChain})
         case(actionTypes.ADD_TO_TEAM):
             return addToTeam(state, action.addPokemon)
+        case(actionTypes.REMOVE_FROM_TEAM):
+            return removeFromTeam(state, action)
         default:
             return state;
     }

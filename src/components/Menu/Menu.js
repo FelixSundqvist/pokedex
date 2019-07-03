@@ -57,7 +57,10 @@ const Menu = ({ pokemonTeam }) => {
                 <Modal>
                 
                     <h1>{pokemon.name}</h1>
-
+                    <PokeballItemWrapper>
+                        <h2>Stats</h2>
+                        {pokemon.stats.map(cur => <div key={cur.stat.name}>{cur.stat.name}: {cur.base_stat}</div>)}
+                    </PokeballItemWrapper>
                     <PokeballItemWrapper>
                         <h2>Ability: </h2>
                         <p>{pokemon.ability}</p>
@@ -76,7 +79,7 @@ const Menu = ({ pokemonTeam }) => {
     }
     
     const pokeballs = Array.from(Array(6), (cur, id) => 
-        <Pokeball 
+        <Pokeball
             key={"pokeball" + id}
             onClick={() => pokeBallClick(pokemonTeam[id])}
             style={
@@ -86,7 +89,7 @@ const Menu = ({ pokemonTeam }) => {
                 }}>
 
             </Pokeball>)
-    return<StyledMenu>{showModal}<Team>{pokeballs}</Team></StyledMenu>
+    return<StyledMenu>{showModal}<h1>Team</h1><Team>{pokeballs}</Team></StyledMenu>
 }
 
 export default Menu;

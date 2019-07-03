@@ -7,6 +7,7 @@ import Types from '../../components/PokedexInfo/Types/Types';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
 import Backdrop from '../../components/UI/Modal/Backdrop';
+import { natures } from './natures/natures';
 
 const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
    
@@ -17,6 +18,7 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         {move: ""},
     ])
     const [pokeAbility, setPokeAbility] = useState("");
+    const [selectedNature, setSelectedNature ] = useState("")
     const [warning, setWarning] = useState(null)
 
     useEffect(() => {
@@ -28,8 +30,13 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         ])
 
         setPokeAbility(pokemon.abilities[0].ability.name);
+        setSelectedNature(natures[0].name)
     }, [])
-
+    const Form = styled.form`
+        height: 100%;
+        width: 100%;
+        margin: 16px;
+    `
     const ItemWrapper = styled.div`
         width: 90%;
         height: auto;
@@ -41,6 +48,16 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         flex-wrap: wrap;
         box-shadow: 2px 2px 4px 2px #ccc;
     `
+    const StatsWrapper = styled.div`
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 2px 2px 4px 2px #ccc;
+    `
+
     const Move = styled.div`
         border-radius: 1vh;
         flex: 0 0 40%;
@@ -79,31 +96,43 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         }
         
     }
-
-    /* const stats = pokemon.stats.map(cur => <p>{cur.stat.name}: {cur.base_stat}</p>); */
+    const setValue = (e, func) => {
+        e.preventDefault();
+        return func(e.target.value)
+    }
+    const stats = pokemon.stats.map(cur => <div key={cur.stat.name}>{cur.stat.name}: {cur.base_stat} </div>);
     const types = pokemon.types.map(cur => <Types key={cur.type.name} type={cur.type.name} />).reverse()
-    const options = pokemon.moves.map(cur => <option key={cur.move.name} value={cur.move.name}>{cur.move.name}</option>)
     const moves = Array.from(Array(4), (cur, id) => <Move 
-        key={id + "move"}
-    > 
+        key={id + "move"}> 
         <select 
             value={pokemonMoves[id].move} 
             onChange={e => changeMove(e, id)}>
-            {options}
+            { pokemon.moves.map(cur => <option key={cur.move.name} value={cur.move.name}>{cur.move.name}</option>)}
         </select></Move>
     )
+
+    const natureOptions =(
+    <ItemWrapper> 
+        <select 
+            value={selectedNature}
+            onChange={e => setValue(e, setSelectedNature)}
+            >{natures.map(cur => 
+            <option key={cur.name} value={cur.name}>{cur.name}</option>)}
+        </select>
+    </ItemWrapper>)
 
     const abilities =( 
     <ItemWrapper>
         <select 
             value={pokeAbility} 
-            onChange={e => setPokeAbility(e.target.value)}>
+            onChange={e => setValue(e, setPokeAbility)}>
                 {pokemon.abilities.map(cur => <option value={cur.ability.name} key={cur.ability.name}>{cur.ability.name}</option>)}
         </select>
-    </ItemWrapper>)
+    </ItemWrapper>
+    )
 
     const submit = (e, pokemonMoves) => {
-        addPokemon({name: pokemon.name, moves: pokemonMoves, ability: pokeAbility})
+        addPokemon({name: pokemon.name, moves: pokemonMoves, ability: pokeAbility, stats: pokemon.stats})
         setPkmn(null);
     }
 
@@ -114,17 +143,24 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
             { types }
         </TypeWrapper>
         
-        {warning}
-
-        <form>
+        <Form onChange={e => e.preventDefault()}>
             <h2>Ability</h2>
             {abilities}
+            <h2>Nature</h2>
+            {natureOptions}
+                    
+            <h2>Stats</h2>
+            <StatsWrapper>
+                {stats}
+            </StatsWrapper>
+            
+            {warning}
             <h2>Moves</h2>
             <ItemWrapper>
                 {moves}
             </ItemWrapper>
             <Button onClick={(e) => submit(e, pokemonMoves)}>Add</Button>
-        </form>
+        </Form>
     </Modal>)
 
     return (

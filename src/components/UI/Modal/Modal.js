@@ -6,13 +6,12 @@ const Modal = props => {
     position: fixed;
     top: 0;
     left: 0;
-    transform: translate(5%, 5%);
+    transform: translate(5%, 0%);
     width: 90%;
-    height: 90%;
+    height: 100%;
     border: 2px solid black;
     z-index: 999;
     background-color: white;
-    border-radius: 1vw;
     font-family: sans-serif;
     overflow: scroll;
     text-transform: capitalize;
