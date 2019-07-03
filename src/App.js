@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import styled, { withTheme } from 'styled-components';
 import './App.css';
@@ -22,7 +23,7 @@ function App(props) {
     
   return (
     <div className="App">
-      <Menu />
+      <Menu pokemonTeam={props.pokemonTeam} />
       <StyledApp>
         <Route path="/" component={Pokedex} />
         <Suspense fallback={<Loading />}>
@@ -34,4 +35,8 @@ function App(props) {
   );
 }
 
-export default withTheme(App);
+const mapStateToProps = state => ({
+  pokemonTeam: state.pokemonTeam
+})
+
+export default connect(mapStateToProps)(withTheme(App));

@@ -1,6 +1,10 @@
 import React from 'react'
+import styled from 'styled-components';
 
 const Stats = ({stats}) => {
+    const Wrapper = styled.div`
+        border: 2px solid white;
+    `
     const checkColor = (str) => {
         switch(str){
             case ("hp"):
@@ -29,7 +33,7 @@ const Stats = ({stats}) => {
         }
     )
 
-    return <>{statElements}</>;
+    return <Wrapper>{statElements}</Wrapper>;
 
 }
 

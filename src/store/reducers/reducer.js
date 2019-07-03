@@ -2,6 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     pokemons:[],
+    pokemonTeam:[],
+
     selectedGen: 0,
     selectedPokemonId: "",
     selectedPokemon: {},
@@ -9,7 +11,6 @@ const initialState = {
     evolutionChain: {},
     isLoadingPokemons: false,
     isLoadingCurrent: false,
-    
     fetchPokemonError: false,
     fetchCurrentPokemonError: false,
     fetchEvoChainError: false
@@ -24,9 +25,9 @@ const fetchPkmnSuccess = (state, pokemons) => ({...state,
     ...pokemons, 
 ]})
 const fetchPkmnFail = state => newState(state, {
-        isLoadingPokemons: false,
-        fetchPokemonError: true
-    })
+    isLoadingPokemons: false,
+    fetchPokemonError: true
+})
 const fetchCurrentPkmnSuccess = (state, action) => newState(state, {
     isLoadingCurrent: false,
     selectedPokemonId: action.selectedPokemonId,
@@ -39,6 +40,15 @@ const fetchCurrentPkmnFail = (state, action) => newState(state, {
     isLoadingCurrent: false,
     fetchCurrentPokemonError: true,
 })
+
+const addToTeam = (state, addPokemon) => {
+    
+    if(state.pokemonTeam.length <= 6){
+        return newState(state, {pokemonTeam: [...state.pokemonTeam, addPokemon]})
+    }else {
+        return state
+    }
+}
 
 const reducer = (state = initialState, action) => {
     const updateState = newState.bind(null, state);
@@ -60,6 +70,8 @@ const reducer = (state = initialState, action) => {
             return updateState({isLoadingCurrent: true})
         case(actionTypes.FETCH_EVO_CHAIN_SUCCESS):
             return updateState({evolutionChain: action.evolutionChain})
+        case(actionTypes.ADD_TO_TEAM):
+            return addToTeam(state, action.addPokemon)
         default:
             return state;
     }

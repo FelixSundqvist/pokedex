@@ -2,21 +2,20 @@ import React, { Suspense } from 'react';
 import styled, { withTheme } from 'styled-components';
 import Types from './Types/Types';
 import InfoImage from './InfoImage/InfoImage';
-
+import Button from '../UI/Button/Button';
 import { roundNum, checkLetter } from '../../utility';
 import Abilities from './Abilities/Abilities';
-
-import EggGroup from './EggGroup/EggGroup';
 import showOnClick from '../../hoc/showOnClick';
 
 const Stats = React.lazy(() => import('./Stats/Stats')) 
 const EvolutionChain = React.lazy(() =>  import('./EvolutionChain/EvolutionChain'));
 const DexEntry = React.lazy(() => import('./DexEntry/DexEntry'));
 const MoveList = React.lazy(() => import('./Moves/MoveList'));
+const EggGroup = React.lazy(() => import('./EggGroup/EggGroup'));
 
 const PokedexInfo = React.memo(props => {
     
-    const {selectedPokemon, pokedexInfo, evoChain, evolutionClick} = props;
+    const {selectedPokemon, pokedexInfo, evoChain, evolutionClick, addToTeam } = props;
     
     if(selectedPokemon && pokedexInfo && evoChain){
         const { flavor_text_entries, varieties, habitat, base_happiness, capture_rate, egg_groups } = pokedexInfo;
@@ -53,7 +52,7 @@ const PokedexInfo = React.memo(props => {
     
         //TYPES
         pokemonProperties.types = selectedPokemon.types 
-        ? <div key="types">{selectedPokemon.types.map(cur => <Types key={cur.type.name} type={cur.type.name} />)}</div> 
+        ? <div key="types">{selectedPokemon.types.map(cur => <Types key={cur.type.name} type={cur.type.name} />).reverse()}</div> 
         : null;
     
         //GENERA
@@ -65,7 +64,7 @@ const PokedexInfo = React.memo(props => {
 
         //ABILITIES
         pokemonProperties.abilities = abilities 
-        ? <Abilities key="abilities" abilities={abilities} />
+        ? <Abilities key="abilities" abilities={abilities}/>
         : null;
         
         //pokemon dex entry
@@ -91,21 +90,20 @@ const PokedexInfo = React.memo(props => {
 
         //evolution chain, stats, moves
         pokemonProperties.evolutionChain = evoChain 
-            ? showOnClick(EvolutionChain)({key: "evo chain", evoChain: evoChain, title: "Evolution Chain"}) 
+            ? showOnClick(EvolutionChain)({evoChain: evoChain, title: "Evolution Chain"}) 
             : null;
         pokemonProperties.stats = stats 
-            ? showOnClick(Stats)({key:"stats", stats:stats, title: "Stats"}) 
+            ? showOnClick(Stats)({stats:stats, title: "Stats"}) 
             : null;
         pokemonProperties.moves = moves 
-            ? showOnClick(MoveList)({key: "moves", moves: moves, title: "Move List"})
+            ? showOnClick(MoveList)({moves: moves, title: "Move List"})
             :null;
-            
+        pokemonProperties.eggGroups = egg_groups ? showOnClick(EggGroup)({title:"Egg Group", eggGroups:egg_groups}) : null;    
+        
         // habitat, capture rate, happiness
         pokemonProperties.habitat = habitat ? <p key="habitat"> Habitat: { habitat.name }</p> : null;
         pokemonProperties.baseHappiness = base_happiness ? <p key="happiness" >Base Happiness : {base_happiness}</p> : null;
         pokemonProperties.captureRate = capture_rate ? <p key="capture">Capture Rate: {capture_rate} </p> : null;
-
-        pokemonProperties.eggGroups = egg_groups ? <EggGroup eggGroups = {egg_groups}  /> : null;
 
         //Map through all pkmnProperties and render
         const allPkmnProperties = Object.keys(pokemonProperties).map(cur => pokemonProperties[cur]);
@@ -114,9 +112,6 @@ const PokedexInfo = React.memo(props => {
         const infoImage =  imageLink !== "http://felixsundqvist.org/pokemon/undefined.gif" 
             ? <InfoImage imageLink={imageLink} varieties={varieties} evolutionClick={evolutionClick} /> 
             : null;
-        
-        
-    
         return(
             <StyledInfo>
                 <Suspense fallback={<p>LOADING</p>}>
@@ -126,7 +121,7 @@ const PokedexInfo = React.memo(props => {
                 <h2>{selectedPokemon.name}</h2>
                 {allPkmnProperties}
                 
-               {/*  <Button>Add To Team</Button> */}
+                <Button onClick={() => addToTeam({...selectedPokemon,...pokedexInfo})}>Add To Team</Button>
             </StyledInfo>
         )
     }
