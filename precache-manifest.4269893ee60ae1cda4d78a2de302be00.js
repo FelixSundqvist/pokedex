@@ -1,43 +1,47 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "832cda41291897911d3dd8e98b5560b9",
+    "revision": "2cc932ae1a47ea5bf4a01ddfe42b83a6",
     "url": "/pokedex/index.html"
   },
   {
-    "revision": "4d875c233362b4d0df20",
+    "revision": "64f9becdf8bcadbfde10",
     "url": "/pokedex/static/css/main.716411b6.chunk.css"
   },
   {
-    "revision": "081f193000ba1495d35f",
-    "url": "/pokedex/static/js/2.16e0f77a.chunk.js"
+    "revision": "28a712739b0830ef8700",
+    "url": "/pokedex/static/js/2.5807a38a.chunk.js"
   },
   {
-    "revision": "62020ea81d35968c38d1",
-    "url": "/pokedex/static/js/3.17bf767e.chunk.js"
+    "revision": "c22b945c719ac25ba9a8",
+    "url": "/pokedex/static/js/3.824994e6.chunk.js"
   },
   {
-    "revision": "c02545785b0a06aeaef2",
-    "url": "/pokedex/static/js/4.f8498d0c.chunk.js"
+    "revision": "ec83392ca8fa3dba69cf",
+    "url": "/pokedex/static/js/4.09a4ca4c.chunk.js"
   },
   {
-    "revision": "6462df9b79cefbbdf012",
-    "url": "/pokedex/static/js/5.068cc36f.chunk.js"
+    "revision": "2a1adb83c8d98b21bc36",
+    "url": "/pokedex/static/js/5.7b7f6757.chunk.js"
   },
   {
-    "revision": "35acbf7886fd43fd29e6",
-    "url": "/pokedex/static/js/6.8bbfc632.chunk.js"
+    "revision": "f41fba31397731e1591e",
+    "url": "/pokedex/static/js/6.59770750.chunk.js"
   },
   {
-    "revision": "5acc78c525989d0a5553",
-    "url": "/pokedex/static/js/7.129c51d5.chunk.js"
+    "revision": "d9c5e60066b0159c62e6",
+    "url": "/pokedex/static/js/7.23ef5327.chunk.js"
   },
   {
-    "revision": "4d875c233362b4d0df20",
-    "url": "/pokedex/static/js/main.f27fd22a.chunk.js"
+    "revision": "53e27ca328b45637f3af",
+    "url": "/pokedex/static/js/8.1c128659.chunk.js"
   },
   {
-    "revision": "e7dcf5b5761aebdef1fa",
-    "url": "/pokedex/static/js/runtime~main.f16dbb17.js"
+    "revision": "64f9becdf8bcadbfde10",
+    "url": "/pokedex/static/js/main.34d2dd96.chunk.js"
+  },
+  {
+    "revision": "346f39a08a24400a6b2b",
+    "url": "/pokedex/static/js/runtime~main.a196ba42.js"
   },
   {
     "revision": "3ada9815c06d2619d52d16a5601c96b2",
