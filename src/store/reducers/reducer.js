@@ -45,14 +45,19 @@ const fetchCurrentPkmnFail = (state, action) => newState(state, {
 
 const addToTeam = (state, addPokemon) => {
     if(state.pokemonTeam.length <= 6){
-        return newState(state, {pokemonTeam: [...state.pokemonTeam, addPokemon]})
+        return newState(state, {pokemonTeam: [...state.pokemonTeam, {...addPokemon, id: state.pokemonTeam.length} ]})
     }else {
         return state
     }
 }
 
-const removeFromTeam = (state, pokemon) => {
-    return state
+const removeFromTeam = (state, action) => {
+    return {
+        ...state,
+        pokemonTeam: [...state.pokemonTeam]
+        .filter(currentPokemon => currentPokemon.id !== action.id)
+    }
+
 }
 
 const reducer = (state = initialState, action) => {

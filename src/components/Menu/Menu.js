@@ -18,11 +18,11 @@ justify-content: center;
 align-items: center;
 `
 
-const Menu = ({ pokemonTeam }) => {
+const Menu = ({ pokemonTeam, removePkmn }) => {
     
     const [showModal, setShowModal] = useState(null);
 
-    const pokeBallClick = (pokemon) => {
+    const pokeBallClick = (pokemon, id) => {
         if(pokemon){
 
             return setShowModal(<>
@@ -39,6 +39,8 @@ const Menu = ({ pokemonTeam }) => {
                     <PokeballItemWrapper>
                         <h2>Ability: </h2>
                         <p>{pokemon.ability}</p>
+                        <h2>Nature</h2>
+                        <p>{pokemon.nature}</p>
                     </PokeballItemWrapper>
 
                     <PokeballItemWrapper>
@@ -46,7 +48,10 @@ const Menu = ({ pokemonTeam }) => {
                         {pokemon.moves.map(cur => <div key={cur.move}>{cur.move}</div>)}
                     </PokeballItemWrapper>
 
-                    <WarningButton>Remove</WarningButton>    
+                    <WarningButton onClick={() => {
+                        removePkmn(id)
+                        setShowModal(null)
+                        }}>Remove</WarningButton>    
                 </Modal>
             </>)
     
@@ -56,7 +61,7 @@ const Menu = ({ pokemonTeam }) => {
     const pokeballs = Array.from(Array(6), (cur, id) => 
         <Pokeball
             key={"pokeball" + id}
-            onClick={() => pokeBallClick(pokemonTeam[id])}
+            onClick={() => pokeBallClick(pokemonTeam[id], id)}
             style={
                 {backgroundImage:pokemonTeam[id] 
                     ? `url(http://felixsundqvist.org/pokemon/icons/regular/${pokemonTeam[id].name}.png`

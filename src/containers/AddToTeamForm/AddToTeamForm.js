@@ -130,7 +130,7 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
     )
 
     const submit = (e, pokemonMoves) => {
-        addPokemon({name: pokemon.name, moves: pokemonMoves, ability: pokeAbility, stats: pokemon.stats})
+        addPokemon({name: pokemon.name, moves: pokemonMoves, ability: pokeAbility, stats: pokemon.stats, nature: selectedNature})
         setPkmn(null);
     }
 

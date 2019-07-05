@@ -6,6 +6,8 @@ import './App.css';
 import Pokedex from './containers/Pokédex/Pokédex';
 import Loading from './components/UI/Loading/Loading';
 import Menu from './components/Menu/Menu';
+import * as actionTypes from './store/actions/actionTypes';
+
 const CurrentPokemon = React.lazy(() => import('./containers/CurrentPokemon/CurrentPokemon'));
 
 const StyledApp = styled.div`
@@ -24,7 +26,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <Menu pokemonTeam={props.pokemonTeam} />
+      <Menu pokemonTeam={props.pokemonTeam} removePkmn={(id) => props.removePkmn(id)}/>
 
       <StyledApp>
         <Route path="/" component={Pokedex} />
@@ -40,4 +42,8 @@ const mapStateToProps = state => ({
   pokemonTeam: state.pokemonTeam
 })
 
-export default connect(mapStateToProps)(withTheme(App));
+const mapDispatchToProps = dispatch => ({
+  removePkmn: (id) => dispatch({type: actionTypes.REMOVE_FROM_TEAM, id: id})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(App));
