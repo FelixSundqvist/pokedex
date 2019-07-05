@@ -4,9 +4,10 @@ import styled, { withTheme } from 'styled-components';
 const Button = props => {
     const StyledButton = styled.div`
     margin: 8px auto;
-    padding: 16px;
-    min-width: 30px;
+    padding: 8px;
+    min-width: 50px;
     max-width: 200px;
+    max-height: 150px;
     border-radius: 2vh;
     background-color: ${props.selected ? "#0f11cc" : props.theme.palette.secondary};
     border: 2px solid blue;

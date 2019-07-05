@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 export const Pokeball = styled.div`
 position: relative;
-box-shadow: 2px 2px 3px #ccc;
+box-shadow: 2px 2px 3px #888;
 height: 30px;
 width: 30px;
 border: 2px solid black;
@@ -11,6 +11,7 @@ border-radius: 50%;
 background-position: 50% 50%;
 background-size: contain;
 background-repeat: no-repeat;
+background-color: white;
 &:hover{
     cursor: pointer;
     transform: scale(1.01);

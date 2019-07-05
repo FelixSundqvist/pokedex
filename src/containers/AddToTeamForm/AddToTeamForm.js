@@ -126,11 +126,18 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
             onChange={e => setValue(e, setPokeAbility)}>
                 {pokemon.abilities.map(cur => <option value={cur.ability.name} key={cur.ability.name}>{cur.ability.name}</option>)}
         </select>
-    </ItemWrapper>
-    )
+    </ItemWrapper>)
 
     const submit = (e, pokemonMoves) => {
-        addPokemon({name: pokemon.name, moves: pokemonMoves, ability: pokeAbility, stats: pokemon.stats, nature: selectedNature})
+        addPokemon(
+            {
+                name: pokemon.name, 
+                moves: pokemonMoves, 
+                ability: pokeAbility, 
+                stats: pokemon.stats, 
+                nature: selectedNature
+            }
+        )
         setPkmn(null);
     }
 
@@ -162,11 +169,7 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         </Form>
     </Modal>)
 
-    return (
-    <>
-        <Backdrop onClick={() => setPkmn(null)} />
-        { form }
-    </>)
+    return (<><Backdrop onClick={() => setPkmn(null)} />{ form }</>)
 }
 
 const mapDispatchToProps = dispatch => ({

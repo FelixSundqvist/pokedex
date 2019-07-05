@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Modal from '../UI/Modal/Modal';
 import Backdrop from '../UI/Modal/Backdrop';
 import WarningButton from '../UI/WarningButton/WarningButton';
 import PkmnIcon from '../UI/PkmnIcon/PkmnIcon';
 import {Pokeball, PokeballItemWrapper} from './Pokeball'
 
-const StyledMenu = styled.div`
-min-height: 10vh;
-`
-const Team = styled.div`
-width: 90%;
-margin: 16px auto;
-box-shadow: 2px 2px 3px #ccc;
-display: flex;
-justify-content: center;
-align-items: center;
-`
 
-const Menu = ({ pokemonTeam, removePkmn }) => {
+
+const Menu = ({ pokemonTeam, removePkmn, theme }) => {
     
     const [showModal, setShowModal] = useState(null);
+        const StyledMenu = styled.div`
+        padding: 16px;
+        background-color: ${ theme.palette.black };
+        color: white;
+        `
+        const Team = styled.div`
+        width: 90%;
+        margin: 0 auto;
 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:  ${ theme.palette.primary };
+        `
     const pokeBallClick = (pokemon, id) => {
         if(pokemon){
 
@@ -71,5 +74,4 @@ const Menu = ({ pokemonTeam, removePkmn }) => {
             </Pokeball>)
     return<StyledMenu>{showModal}<h1>Team</h1><Team>{pokeballs}</Team></StyledMenu>
 }
-
-export default Menu;
+export default withTheme(Menu);

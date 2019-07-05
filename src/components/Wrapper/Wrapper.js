@@ -21,12 +21,12 @@ const Wrapper = ({ theme, children, genButtons, scanner }) => {
         @media screen and (max-width: 768px){
             width: 95vw;
             height: 100vh;
+            box-shadow: none;        
         }
     `
     
     const ScreenFrame = styled.div`
-        outline: 2vw solid ${theme.palette.white};
-        height: 90%;
+        height: 80%;
         width: 90%;
         overflow: scroll;
         margin: 2vh auto;

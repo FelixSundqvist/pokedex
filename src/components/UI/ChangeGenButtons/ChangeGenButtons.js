@@ -5,10 +5,10 @@ import Button from '../Button/Button';
 
 const ChangeGenButtons = React.memo(props => {
     const BtnWrapper = styled.div`
-        margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
+        justify-content: center;
+        align-items: center;
         @media screen and (max-width: 768px){
             font-size: 2vw;
         }
