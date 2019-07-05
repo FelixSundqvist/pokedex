@@ -7,22 +7,17 @@ import ErrorHandler from '../../components/UI/ErrorHandler/ErrorHandler';
 
 const Pokedex = React.memo(props => {
     const { fetchAllPokemons, selectedGen  } = props;
-
     useEffect(() => {
         fetchAllPokemons(selectedGen)
     }, [selectedGen, fetchAllPokemons])
-
-    const changePage = (event, id) =>{
-        props.history.push("/id="+id)
-    }
-
+    const changePage = (event, id) => props.history.push("/id="+id)
     const pokemons = !props.isLoading && !props.fetchPokemonError
         ?   <CardList 
                 selected={props.selectedPokemonId}
                 onClick={changePage} 
                 items = {props.pokemons} /> 
         : <ErrorHandler error2 />;
-   
+        
     return (<Wrapper genButtons>{ pokemons }</Wrapper>)
 })
 const mapStateToProps = (state) => ({

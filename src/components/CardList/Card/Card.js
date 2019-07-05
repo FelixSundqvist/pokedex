@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Card = ({name, id, onClick, selected, children}) => {
 
-
     const StyledCard = styled.div`
         height: 100px;
         width: 100px;
@@ -42,7 +41,6 @@ const Card = ({name, id, onClick, selected, children}) => {
         background-size: contain;
         background-position: 50% 50%;
     `
-
     return (
     <StyledCard 
         onClick={(event) => onClick(event, name)}>

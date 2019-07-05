@@ -24,12 +24,10 @@ const GenButtons = props => {
     }
     `
 
-
     return (
         <StyledGens>
             <p>Gen</p>
             <ChangeGenButtons currentGen={props.currentGen} genClick={props.genClick} />
-            
         </StyledGens>)
 }
 

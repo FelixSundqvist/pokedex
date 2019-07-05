@@ -9,7 +9,6 @@ const Abilities = ({ abilities, theme }) => {
         justify-content: center;
         align-items: center;
     `
-
     const StyledAbilities = styled.div`
         padding: 16px;
         background-color: ${theme.palette.secondary};
@@ -23,16 +22,14 @@ const Abilities = ({ abilities, theme }) => {
         margin: 8px;
     `
 
-    const allAbilities = (
-    <React.Fragment key="abilities">
-        {abilities.map(cur => !cur.is_hidden 
+    const allAbilities = abilities
+        .map(cur => !cur.is_hidden 
             ? <StyledAbilities key={cur.ability.name}>{cur.ability.name}</StyledAbilities> 
             :<React.Fragment key={cur.ability.name}>
                 <p>Hidden: </p>
                 <StyledHiddenAbilities>{cur.ability.name}</StyledHiddenAbilities>
-            </React.Fragment>
-        ).reverse()} 
-    </React.Fragment>)
+            </React.Fragment>)
+        .reverse()
 
     return (
         <>

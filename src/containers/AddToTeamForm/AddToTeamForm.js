@@ -8,6 +8,48 @@ import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
 import Backdrop from '../../components/UI/Modal/Backdrop';
 import { natures } from './natures/natures';
+import PkmnIcon from '../../components/UI/PkmnIcon/PkmnIcon';
+
+const Form = styled.form`
+height: 100%;
+width: 100%;
+margin: 16px;
+`
+const ItemWrapper = styled.div`
+width: 90%;
+height: auto;
+padding: 16px;
+margin: 16px auto;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-wrap: wrap;
+box-shadow: 2px 2px 4px 2px #ccc;
+`
+const StatsWrapper = styled.div`
+width: 90%;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+box-shadow: 2px 2px 4px 2px #ccc;
+`
+
+const Move = styled.div`
+border-radius: 1vh;
+flex: 0 0 40%;
+border: 2px solid black;
+padding: 16px;
+margin: 8px;
+text-transform: capitalize;
+`
+const TypeWrapper = styled.div`
+margin: 16px auto;
+`
+const Warning = styled.h3`
+color: red;
+`
 
 const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
    
@@ -31,61 +73,14 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
 
         setPokeAbility(pokemon.abilities[0].ability.name);
         setSelectedNature(natures[0].name)
-    }, [])
-    const Form = styled.form`
-        height: 100%;
-        width: 100%;
-        margin: 16px;
-    `
-    const ItemWrapper = styled.div`
-        width: 90%;
-        height: auto;
-        padding: 16px;
-        margin: 16px auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        box-shadow: 2px 2px 4px 2px #ccc;
-    `
-    const StatsWrapper = styled.div`
-        width: 90%;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 2px 2px 4px 2px #ccc;
-    `
-
-    const Move = styled.div`
-        border-radius: 1vh;
-        flex: 0 0 40%;
-        border: 2px solid black;
-        padding: 16px;
-        margin: 8px;
-        text-transform: capitalize;
-    `
-    const TypeWrapper = styled.div`
-        margin: 16px auto;
-    `
-    const Warning = styled.h3`
-        color: red;
-    `
+    }, [pokemon.abilities, pokemon.moves])
 
     const changeMove = (e, id) => {
         e.preventDefault();
         const pokemonMoveCopy = [...pokemonMoves]
         
-        const test = pokemonMoveCopy.map((c, index) => {
-            if(id !== index){
-  
-                return e.target.value === c.move
-                
-            }else{
-                return false
-            }})
-
+        const test = pokemonMoveCopy.map((c, index) => id !== index ? e.target.value === c.move : false)
+        
         if(test.some(id => id === true) ){
             pokemonMoveCopy[id].move = pokemonMoves[id].move;
            return setWarning(<Warning>Please select only one of each move</Warning>)
@@ -100,15 +95,18 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         e.preventDefault();
         return func(e.target.value)
     }
+
     const stats = pokemon.stats.map(cur => <div key={cur.stat.name}>{cur.stat.name}: {cur.base_stat} </div>);
     const types = pokemon.types.map(cur => <Types key={cur.type.name} type={cur.type.name} />).reverse()
-    const moves = Array.from(Array(4), (cur, id) => <Move 
-        key={id + "move"}> 
-        <select 
-            value={pokemonMoves[id].move} 
-            onChange={e => changeMove(e, id)}>
-            { pokemon.moves.map(cur => <option key={cur.move.name} value={cur.move.name}>{cur.move.name}</option>)}
-        </select></Move>
+    const moves = Array.from(Array(4), (cur, id) => 
+        <Move key={id + "move"}> 
+            <select value={pokemonMoves[id].move} onChange={e => changeMove(e, id)}>
+                { 
+                    pokemon.moves.map(cur => 
+                        <option key={cur.move.name} value={cur.move.name}>{cur.move.name}</option>)
+                }
+            </select>
+        </Move>
     )
 
     const natureOptions =(
@@ -136,9 +134,10 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         setPkmn(null);
     }
 
-    const form = (<Modal>
-    <h1>{pokemon.name}</h1>
-    <img src={`http://felixsundqvist.org/pokemon/icons/regular/${pokemon.name}.png`} alt={pokemon.name} /> 
+    const form = (
+    <Modal>
+        <h1>{pokemon.name}</h1>
+        <PkmnIcon name={pokemon.name} />
         <TypeWrapper>
             { types }
         </TypeWrapper>

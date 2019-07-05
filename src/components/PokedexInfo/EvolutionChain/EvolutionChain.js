@@ -1,42 +1,40 @@
 import React from 'react'
 import styled from 'styled-components';
+import PkmnIcon from '../../UI/PkmnIcon/PkmnIcon';
+
+
+const EvolutionWrapper = styled.div`
+display: flex;
+overflow: hidden;
+flex-wrap: wrap;
+align-items: center;
+justify-content: space-evenly;
+color: white;
+`
+const EvoItem = styled.span`
+overflow: hidden;
+`
+const EvoMethodDiv = styled.div`   
+padding: 8px;
+margin: 8px;
+min-width: 100px;
+height: 100px;
+word-wrap: break-word;
+font-size: .4vw;
+border: .1vw solid white;
+overflow: auto;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+@media screen and (max-width: 768px){    
+    height: 80px;
+    font-size: 1vw;
+}
+`
 
 const EvolutionChain = ({ evoChain }) => {
 
-    const EvolutionWrapper = styled.div`
-        display: flex;
-        overflow: hidden;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-evenly;
-        color: white;
-    `
-    const EvoItem = styled.span`
-        overflow: hidden;
-    `
-    const EvoMethodDiv = styled.div`   
-        padding: 8px;
-        margin: 8px;
-        min-width: 100px;
-        height: 100px;
-        word-wrap: break-word;
-        font-size: .4vw;
-        border: .1vw solid white;
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        @media screen and (max-width: 768px){    
-            height: 80px;
-            font-size: 1vw;
-        }
-    `
-    const ItemImage = styled.img`
-        display: block;
-        margin: 8px auto;
-        height: 40%;
-    `
     if(evoChain.chain){
         const checkEvoChain = evolution => evolution.evolves_to && evolution.evolves_to.length > 0
         const checkEvolution = (evolution, arr = []) => {
@@ -62,9 +60,7 @@ const EvolutionChain = ({ evoChain }) => {
                     {
                        
                         key[evolutionMethod] && key[evolutionMethod].name && evolutionMethod.includes("item") 
-                        ? <ItemImage 
-                            src={`http://felixsundqvist.org/pokemon/evo-item/${key[evolutionMethod].name}.png`} 
-                            alt={key[evolutionMethod].name} /> 
+                        ? <PkmnIcon name={key[evolutionMethod].name} />
                         : null
                     }
                 </EvoItem>
@@ -86,7 +82,6 @@ const EvolutionChain = ({ evoChain }) => {
             if(evolution_details.length === 0 ){
                 return
             }
-    
             return evolution_details.map((cur, id) => Object.keys(cur)
                 .map(currentMethod => createEvoItems(cur, currentMethod, id))
                 .filter(current => filterEvolutionMethod(current)))
@@ -95,21 +90,14 @@ const EvolutionChain = ({ evoChain }) => {
         
         const createEvolutionElements = (cur, id) => 
             <EvoMethodDiv key={cur.species.name} >
-                <ItemImage 
-                    src={`http://felixsundqvist.org/pokemon/icons/regular/${cur.species.name}.png`} 
-                    alt={cur.species.name} /> 
-                {cur.species.name}</EvoMethodDiv>
+                <PkmnIcon name={cur.species.name} />
+                {cur.species.name}
+            </EvoMethodDiv>
     
-    
-    /*           <Card key={cur.species.name} 
-                    onClick={onClick} 
-                id={getIDFromURL(cur.species.url)}
-                name={cur.species.name} /> */
+
         const createEvolutionMethodEl = (cur, id) => 
         <EvoMethodDiv key={cur + id}>
-            {
-                evolutionMethod(cur)
-            }
+            {evolutionMethod(cur)}
         </EvoMethodDiv>
     
         const evolutionBranch = checkEvolution(evoChain.chain).map((currentBranch, id) => 
