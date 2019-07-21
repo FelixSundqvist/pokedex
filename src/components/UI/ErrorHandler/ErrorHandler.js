@@ -17,7 +17,7 @@ const ErrorHandler = props => {
         const timer = setTimeout(() => 
         setMessage(<ErrorMessage><img src={props.error1 ? errorImage : errorImage2} alt="error" /> ERROR</ErrorMessage>), 2000);
         return () => clearTimeout(timer)
-    }, [])
+    }, [props.error1])
 
     
    

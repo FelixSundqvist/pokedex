@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Title from '../components/PokedexInfo/Title/Title';
 
-
-const showOnClick = Component => props =>{
+const showOnClick = Component => props => {
     const [show, setShow] = useState(false);
     const hidden = show ? <Component {...props} show={show} /> : null
 

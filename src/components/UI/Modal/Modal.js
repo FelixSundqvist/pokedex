@@ -16,6 +16,7 @@ const Modal = props => {
     overflow: scroll;
     text-transform: capitalize;
     display: ${props.show ? "block" : null};
+    color: #000;
     h1 {
         background-color: ${props.theme.palette.primary};
         margin: 0;

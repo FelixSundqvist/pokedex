@@ -62,7 +62,9 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
     const [pokeAbility, setPokeAbility] = useState("");
     const [selectedNature, setSelectedNature ] = useState("")
     const [warning, setWarning] = useState(null)
+    const [pokemonIV, setPokemonIV] = useState([0, 0, 0, 0, 0, 0])
 
+    
     useEffect(() => {
         setPokemonMoves([
             {move: pokemon.moves[0].move.name},
@@ -72,7 +74,7 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         ])
 
         setPokeAbility(pokemon.abilities[0].ability.name);
-        setSelectedNature(natures[0].name)
+        setSelectedNature(natures[0])
     }, [pokemon.abilities, pokemon.moves])
 
     const changeMove = (e, id) => {
@@ -91,12 +93,26 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         }
         
     }
-    const setValue = (e, func) => {
-        e.preventDefault();
-        return func(e.target.value)
-    }
+    const setValue = (value, func) => func(value)
+    const ivs =  Array.from(Array(32), ((cur, index) => <option key={index} value={index}>{index}</option> ))
+    
+    const stats = pokemon.stats.map(
+        (stat, index )=> 
+            <div key={stat.stat.name}>
+                <div>{stat.stat.name}: {stat.base_stat} + {pokemonIV[index]}</div>
 
-    const stats = pokemon.stats.map(cur => <div key={cur.stat.name}>{cur.stat.name}: {cur.base_stat} </div>);
+
+                <select value={pokemonIV[index]} onChange={(e) => {
+                        const ivs = [...pokemonIV];
+                        ivs[index] = e.target.value;
+                        setPokemonIV(ivs)
+                }}>
+                    {ivs}
+                </select>
+     
+
+            </div>);
+
     const types = pokemon.types.map(cur => <Types key={cur.type.name} type={cur.type.name} />).reverse()
     const moves = Array.from(Array(4), (cur, id) => 
         <Move key={id + "move"}> 
@@ -110,23 +126,28 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
     )
 
     const natureOptions =(
-    <ItemWrapper> 
+    <ItemWrapper style={{display: "block"}}> 
         <select 
-            value={selectedNature}
-            onChange={e => setValue(e, setSelectedNature)}
+            value={selectedNature.name}
+            onChange={e => setValue(natures.filter(current => current.name === e.target.value)[0], setSelectedNature)}
             >{natures.map(cur => 
-            <option key={cur.name} value={cur.name}>{cur.name}</option>)}
+                <option key={cur.name} value={cur.name}>{cur.name}</option>
+            )}
         </select>
+        <br />
+        Increase: <p style={{color: "green"}}>{selectedNature.inc} </p>
+        Decrease: <p style={{color: "red"}}>{selectedNature.dec} </p>
     </ItemWrapper>)
 
     const abilities =( 
     <ItemWrapper>
         <select 
             value={pokeAbility} 
-            onChange={e => setValue(e, setPokeAbility)}>
+            onChange={e => setValue(e.target.value, setPokeAbility)}>
                 {pokemon.abilities.map(cur => <option value={cur.ability.name} key={cur.ability.name}>{cur.ability.name}</option>)}
         </select>
     </ItemWrapper>)
+
 
     const submit = (e, pokemonMoves) => {
         addPokemon(
@@ -135,7 +156,8 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
                 moves: pokemonMoves, 
                 ability: pokeAbility, 
                 stats: pokemon.stats, 
-                nature: selectedNature
+                nature: selectedNature,
+                IVs: pokemonIV
             }
         )
         setPkmn(null);
@@ -150,15 +172,15 @@ const AddToTeamForm = ({ pokemon, theme, setPkmn, addPokemon }) => {
         </TypeWrapper>
         
         <Form onChange={e => e.preventDefault()}>
-            <h2>Ability</h2>
-            {abilities}
-            <h2>Nature</h2>
-            {natureOptions}
-                    
             <h2>Stats</h2>
             <StatsWrapper>
                 {stats}
             </StatsWrapper>
+
+            <h2>Ability</h2>
+            {abilities}
+            <h2>Nature</h2>
+            {natureOptions}
             
             {warning}
             <h2>Moves</h2>
